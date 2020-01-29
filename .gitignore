@@ -1,0 +1,12 @@
+/node_modules
+/package-lock.json
+*.log
+/**/.DS_Store*
+*DS_Store*
+/dist
+/.env
+/coverage
+/.nyc_output
+/config.js
+/playground
+/routes/private.js
