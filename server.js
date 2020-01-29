@@ -1,7 +1,6 @@
 const express = require('express')
 const mongoose = require('./db/mongoose')
 const bodyParser = require('body-parser')
-const private = require('./routes/private')
 var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
