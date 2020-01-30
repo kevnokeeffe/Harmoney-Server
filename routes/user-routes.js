@@ -6,9 +6,12 @@ const User = require('../db/models/user-model')
 let auth = require('../services/auth-service')
 
 require('dotenv').config()
-
+router.get('/user',(req,res) => {
+  return res.json({message: 'Hello Wworld'})
+})
 // Register User
 router.post('/register', (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
   const { email, password, fName, lName, username } = req.body
 
   let newUser = new User({
@@ -37,6 +40,7 @@ router.post('/register', (req, res) => {
 
 // User Login
 router.post('/login', (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
   const { email } = req.body
   User.findOne({ email })
     .then(user => {
@@ -49,10 +53,6 @@ router.post('/login', (req, res) => {
           if (!match) {
             return res.status(401).send({auth:false, token: null})
           }
-          // const tokenData = {fName:user.fName, id: user._id, email: user.email};
-          // const token = jwt.sign( tokenData , process.env.SECRET_KEY, {
-          //   expiresIn: 8000
-          // } )
           const token = auth.generateJWT(user)
           return res.status(200).send({ message: 'Login Successful', token: token })
         })

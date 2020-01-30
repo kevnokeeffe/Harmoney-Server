@@ -26,8 +26,8 @@ app.use(bodyParser.json())
 app.get('/', (req, res) => {
   res.send('welcome')
 })
-
-app.use('/auth-user', userRoutes)
+app.use('/api/test', userRoutes)
+app.use('/api/auth', userRoutes)
 app.use('/auth-private', privateRoutes)
 
 // catch 404 and forward to error handler

@@ -3,7 +3,6 @@ const User = require('../db/models/user-model')
 
 module.exports = (req, res, next) => {
   let token = req.header('authenticate')
-
   try {
     let payload = jwt.verify(token, process.env.SECRET_KEY)
     User.findById(payload._id)
