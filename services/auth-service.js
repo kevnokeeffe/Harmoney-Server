@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken')
 let express = require('express')
 let router = express.Router()
+const axios = require('axios');
+require('dotenv').config();
 
 router.generateJWT = (user) => {
     const tokenData = {
@@ -18,4 +20,14 @@ router.generateJWT = (user) => {
         })
 }
 
+router.helloBank = () => {
+    
+axios.get(process.env.BANK_SERVER +'/users/bank')
+.then(res => {
+  console.log(res.data.message);
+  // return res.data.message 
+  }).catch(error => {
+    console.log(error);
+  });
+}
 module.exports = router

@@ -1,7 +1,7 @@
 const StringUtil = require('../utilities/string-util')
 const express = require('express')
 let router = express.Router()
-import User from '../db/models/user-model'
+import User from '../models/user-model'
 
 router.index = (req,res) => {
     const validation = validateIndex(req.body)
