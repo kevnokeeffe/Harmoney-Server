@@ -17,13 +17,13 @@ router.generateJWT = user => {
 }
 
 // Server to server connection test
-router.helloBank = () => {
-  axios
+router.helloBank = async (req,res) => {
+  res.setHeader('Content-Type', 'application/json')
+  await axios
     .get(process.env.WIT_BANK_SERVER + '/users/bank')
-    .then(res => {
-      console.log(res.data.message)
-      //return res.json(res.data.message)
-      return res
+    .then(data => {
+      console.log(data.data.message)
+      return res.json(data.data.message)
     })
     .catch(error => {
       console.log(error)

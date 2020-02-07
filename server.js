@@ -9,7 +9,7 @@ const errorController = require('./controllers/error')
 const cors = require('cors')
 const userRoutes = require('./routes/user-routes')
 const privateRoutes = require('./routes/private')
-
+const axios = require('axios')
 let app = express()
 app.use(cors())
 // view engine setup
