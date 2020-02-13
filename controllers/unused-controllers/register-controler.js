@@ -1,9 +1,10 @@
-const StringUtil = require('../utilities/string-util')
+const StringUtil = require('../../utilities/string-util')
 const express = require('express')
 let router = express.Router()
 import User from '../models/user-model'
 
 router.index = (req,res) => {
+    // Maybe add this to user-control
     const validation = validateIndex(req.body)
     if(!validation.isValid){
         return res.status(400).json({ message: validation.message })
