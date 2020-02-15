@@ -20,7 +20,7 @@ router.generateJWT = user => {
 router.helloBank = async (req,res) => {
   res.setHeader('Content-Type', 'application/json')
   await axios
-    .get(process.env.WIT_BANK_SERVER + '/users/bank')
+    .get(process.env.WIT_BANK_SERVER + '/api/test/bank')
     .then(data => {
       console.log(data.data.message)
       return res.json(data.data.message)

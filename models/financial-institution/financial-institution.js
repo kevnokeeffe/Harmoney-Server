@@ -13,6 +13,8 @@ const FISchema = new mongoose.Schema({
     accounts:[{
         accountID: {type: String}, //fk
     }],
+    refreshToken: {type: String},
+    accessToken: {type: String},
     fiType:{type: String},
     uploadDate: {type: Date, default: Date.now}
 },{ collection: 'financial-institutions' })

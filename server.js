@@ -9,7 +9,7 @@ const errorController = require('./controllers/error')
 const cors = require('cors')
 const userRoutes = require('./routes/user-routes')
 const privateRoutes = require('./routes/private')
-const axios = require('axios')
+const FIRoutes = require('./routes/financial-institution-routes')
 let app = express()
 app.use(cors())
 // view engine setup
@@ -29,6 +29,7 @@ app.get('/', (req, res) => {
 app.use('/api/test', userRoutes)
 app.use('/api/auth', userRoutes)
 app.use('/auth-private', privateRoutes)
+app.use('/api/fi', FIRoutes)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
