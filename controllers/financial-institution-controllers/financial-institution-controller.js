@@ -54,10 +54,10 @@ router.helloBank = async (req,res) => {
       .get(process.env.WIT_BANK_SERVER + '/api/test/bank')
       .then(res => {
         console.log(res.data.message)
-        return res.send(res.data.message)
+        return res.status(200).send(res.data.message)
       })
       .catch(error => {
-        console.log(error)
+        return res.status(409).json({ message: 'Invalid!' })
       })
   }
 

@@ -58,9 +58,9 @@ router.helloBank = async (req,res) => {
   res.setHeader('Content-Type', 'application/json')
   await axios
     .get(process.env.WIT_BANK_SERVER + '/api/test/bank')
-    .then(res => {
-      console.log(res.data.message)
-      return res.json(res.data.message)
+    .then(response => {
+      console.log(response.data.message)
+      return res.json(response.data.message)
     })
     .catch(error => {
       console.log(error)
