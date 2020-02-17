@@ -10,6 +10,7 @@ const cors = require('cors')
 const userRoutes = require('./routes/user-routes')
 const privateRoutes = require('./routes/private')
 const FIRoutes = require('./routes/financial-institution-routes')
+const accountRoutes = require('./routes/account-routes')
 let app = express()
 app.use(cors())
 // view engine setup
@@ -30,7 +31,7 @@ app.use('/api/test', userRoutes)
 app.use('/api/auth', userRoutes)
 app.use('/auth-private', privateRoutes)
 app.use('/api/fi', FIRoutes)
-
+app.use('/api/account', accountRoutes)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(406))

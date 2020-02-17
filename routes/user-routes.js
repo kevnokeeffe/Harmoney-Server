@@ -9,7 +9,7 @@ router.post('/register', userController.register)
 router.post('/login', userController.login)
 // Hello World Test
 router.get('/user', (req, res) => {
-  return res.json('Hello Harmon€y Server')
+  return res.send({message: 'Hello Harmon€y Server'})
 })
 router.get('/bank', auth.helloBank)
 

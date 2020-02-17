@@ -23,7 +23,7 @@ router.register = (req, res) => {
         })
         user
           .save()
-          .then(result => {
+          .then(res => {
             const token = auth.generateJWT(user)
             res
               .status(200)
