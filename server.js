@@ -9,7 +9,7 @@ const errorController = require('./controllers/error')
 const cors = require('cors')
 const userRoutes = require('./routes/user-routes')
 const privateRoutes = require('./routes/private')
-const FIRoutes = require('./routes/financial-institution-routes')
+const fiRoutes = require('./routes/financial-institution-routes')
 const accountRoutes = require('./routes/account-routes')
 let app = express()
 app.use(cors())
@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 app.use('/api/test', userRoutes)
 app.use('/api/auth', userRoutes)
 app.use('/auth-private', privateRoutes)
-app.use('/api/fi', FIRoutes)
+app.use('/api/fi', fiRoutes)
 app.use('/api/account', accountRoutes)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

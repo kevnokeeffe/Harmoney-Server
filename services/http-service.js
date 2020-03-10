@@ -7,7 +7,7 @@ var http = require('http')
 require('dotenv').config()
 export function http() {
   return axios.create({
-    baseURL: process.env.BANK_SERVER,
+    baseURL: process.env.WIT_BANK_SERVER,
     headers: {
       authenticate: auth.getToken()
     }

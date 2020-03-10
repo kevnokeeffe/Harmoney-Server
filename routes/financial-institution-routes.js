@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const FIcontoller = require('../controllers/financial-institution-controllers/financial-institution-controller')
+const fiController = require('../controllers/financial-institution-controllers/financial-institution-controller')
 
 // Login Route
-router.post('/login', FIcontoller.login)
+router.post('/login-access', fiController.loginAccess)
+router.post('/login-refresh', fiController.loginRefresh)
 
 module.exports = router

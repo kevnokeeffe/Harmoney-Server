@@ -14,7 +14,6 @@ router.getAllCurrentAccounts = async (req,res) => {
       .get(process.env.WIT_BANK_SERVER + '/api/account/find-current-all')
       .then( response => {
           account = response.data.account
-          // console.log(account)
           return res.status(200).send(account)
       })
       .catch(error => {
