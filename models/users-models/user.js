@@ -1,7 +1,6 @@
 let mongoose = require('mongoose')
 let Schema = mongoose.Schema
 const bcrypt = require('bcryptjs')
-
 let UsersSchema = new Schema(
   {
     fName: { type: String },

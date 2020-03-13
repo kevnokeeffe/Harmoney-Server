@@ -1,3 +1,6 @@
+/*************************************/
+// This is the the model being used!!//
+/*************************************/
 const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')

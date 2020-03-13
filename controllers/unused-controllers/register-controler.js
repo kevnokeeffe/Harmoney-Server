@@ -2,6 +2,7 @@ const StringUtil = require('../../utilities/string-util')
 const express = require('express')
 let router = express.Router()
 import User from '../models/user-model'
+const Account = require('../models/financial-institution/account')
 
 router.index = (req,res) => {
     // Maybe add this to user-control

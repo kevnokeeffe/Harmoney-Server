@@ -3,7 +3,7 @@ let router = express.Router()
 let User = require('../../models/users-models/user-model')
 const bcrypt = require('bcryptjs')
 let auth = require('../../services/auth-service')
-
+const Account = require('../../models/financial-institution/account')
 // Register Method
 router.register = (req, res) => {
   res.setHeader('Content-Type', 'application/json')
@@ -15,6 +15,7 @@ router.register = (req, res) => {
         //409 means conflict could use 422 which means unprocessable entity
         return res.status(409).json({ message: 'Sorry, email already exists!' })
       } else {
+        //console.log(user)
         const user = new User({
           fName: req.body.fName,
           lName: req.body.lName,
@@ -23,7 +24,8 @@ router.register = (req, res) => {
         })
         user
           .save()
-          .then(res => {
+          .then(user => {
+            createAccount(user)
             const token = auth.generateJWT(user)
             res
               .status(200)
@@ -38,8 +40,46 @@ router.register = (req, res) => {
     })
 }
 
+createAccount = user => {
+  captureDetailsReg(user)
+  const userEmail = user.email
+  const id = user._id
+  const account = new Account({
+    userID: id,
+    email: userEmail,
+    bank:[{
+      financialInstitutionID: null, //fk
+      refreshToken: null,
+      accessToken: null,
+      IBAN: null,
+      userFiID: null,
+      bankEmail: null,
+  }],
+
+  })
+  account.save()
+}
+
+captureDetailsReg = user => {
+  const userEmail = user.email
+  const id = user._id
+  console.log(userEmail)
+  console.log(id)
+}
+
+captureDetailsLogin = userEmail => {
+  console.log(userEmail)
+  User.findOne({ email: userEmail })
+    .exec()
+    .then(user => {
+      const id = user._id
+      console.log(id)
+    })
+}
+
 // Login Method
 router.login = (req, res) => {
+  captureDetailsLogin(req.body.email)
   res.setHeader('Content-Type', 'application/json')
   const { email } = req.body
   User.findOne({ email })
@@ -56,7 +96,7 @@ router.login = (req, res) => {
           const token = auth.generateJWT(user)
           return res
             .status(200)
-            .send({ message: 'Login Successful', token: token })
+            .send({ auth: true, message: 'Login Successful', token: token })
         })
         .catch(err => {
           // where the error is

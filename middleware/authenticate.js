@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/users-models/user-model')
 
 module.exports = (req, res, next) => {
-  let token = req.header('authenticate')
+  let token = req.header('Authorization')
   try {
     let payload = jwt.verify(token, process.env.SECRET_KEY)
     User.findById(payload._id)

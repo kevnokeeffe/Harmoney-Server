@@ -12,7 +12,7 @@ router.generateJWT = user => {
     email: user.email
   }
   return (token = jwt.sign(tokenData, process.env.SECRET_KEY, {
-    expiresIn: 8000
+    expiresIn: 300000 // 5 Minutes
   }))
 }
 
