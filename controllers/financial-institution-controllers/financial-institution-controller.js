@@ -14,7 +14,7 @@ router.loginAccess = async (req,res) => {
       .post(`${process.env.BANK_SERVER}/api/user/login-access`, user)
       .then(response => {
         let tokenA = response.data.token
-        console.log(tokenA)
+        TokenService.saveAccessToken(tokenA)
         return res.status(200).send({message})
       })
       .catch(error => {
@@ -37,7 +37,6 @@ router.loginAccess = async (req,res) => {
   router.loginRefresh = async (req,res) => {
     const user = { email : req.body.email, password : req.body.password}
     res.setHeader('Content-Type', 'application/json')
-
     // Get token in header. Used to check who the userID is.
     const decodeToken  = TokenService.decodeHeaderToken(req)
     const userID = TokenService.getUserID(decodeToken);
@@ -52,8 +51,6 @@ router.loginAccess = async (req,res) => {
         console.log(error)
       })
   }
-
-
 
   router.decodeToken = (token) => {
     if (token.length <= 1) {

@@ -25,7 +25,7 @@ router.register = (req, res) => {
         user
           .save()
           .then(user => {
-            createAccount(user)
+            //createAccount(user)
             const token = auth.generateJWT(user)
             res
               .status(200)
@@ -48,14 +48,13 @@ createAccount = user => {
     userID: id,
     email: userEmail,
     bank:[{
-      financialInstitutionID: null, //fk
-      refreshToken: null,
-      accessToken: null,
-      IBAN: null,
-      userFiID: null,
-      bankEmail: null,
-  }],
-
+    financialInstitutionID: null, //fk
+    refreshToken: null,
+    accessToken: null,
+    IBAN: null,
+    userFiID: null,
+    bankEmail: null,
+    }]
   })
   account.save()
 }
