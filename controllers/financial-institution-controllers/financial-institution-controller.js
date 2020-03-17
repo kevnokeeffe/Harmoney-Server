@@ -2,7 +2,6 @@ let express = require('express')
 let router = express.Router()
 const axios = require('axios')
 const jwt = require('jsonwebtoken')
-let token = null
 let message = "Successful Login"
 let Account = require('../../models/financial-institution/account')
 let TokenService = require('../../services/fi-token-service')
@@ -10,6 +9,7 @@ let TokenService = require('../../services/fi-token-service')
 router.loginAccess = async (req,res) => {
     const user = { email : req.body.email, password : req.body.password}
     res.setHeader('Content-Type', 'application/json')
+    console.log("works here")
     await axios
       .post(`${process.env.BANK_SERVER}/api/user/login-access`, user)
       .then(response => {
@@ -35,20 +35,21 @@ router.loginAccess = async (req,res) => {
 
   // Get refresh token
   router.loginRefresh = async (req,res) => {
-    const user = { email : req.body.email, password : req.body.password}
     res.setHeader('Content-Type', 'application/json')
+    const user = { email : req.body.email, password : req.body.password}
     // Get token in header. Used to check who the userID is.
     const decodeToken  = TokenService.decodeHeaderToken(req)
     const userID = TokenService.getUserID(decodeToken);
     await axios
       .post(`${process.env.BANK_SERVER}/api/user/login-refresh`, user)
       .then(response => {
+        if(response.auth === false){ return res.status(401).send({auth:false, token:null, message:"Invalid Login"})}
         let tokenB = response.data.token
         TokenService.saveRefreshToken(tokenB,userID)
         return res.status(200).send({message})
       })
       .catch(error => {
-        console.log(error)
+        return res.status(409).send({auth:false, token:null, message:"Invalid Login"})
       })
   }
 

@@ -4,6 +4,7 @@ let User = require('../../models/users-models/user-model')
 const bcrypt = require('bcryptjs')
 let auth = require('../../services/auth-service')
 const Account = require('../../models/financial-institution/account')
+
 // Register Method
 router.register = (req, res) => {
   res.setHeader('Content-Type', 'application/json')
@@ -15,7 +16,6 @@ router.register = (req, res) => {
         //409 means conflict could use 422 which means unprocessable entity
         return res.status(409).json({ message: 'Sorry, email already exists!' })
       } else {
-        //console.log(user)
         const user = new User({
           fName: req.body.fName,
           lName: req.body.lName,
@@ -25,7 +25,6 @@ router.register = (req, res) => {
         user
           .save()
           .then(user => {
-            //createAccount(user)
             const token = auth.generateJWT(user)
             res
               .status(200)
@@ -59,26 +58,8 @@ createAccount = user => {
   account.save()
 }
 
-captureDetailsReg = user => {
-  const userEmail = user.email
-  const id = user._id
-  console.log(userEmail)
-  console.log(id)
-}
-
-captureDetailsLogin = userEmail => {
-  console.log(userEmail)
-  User.findOne({ email: userEmail })
-    .exec()
-    .then(user => {
-      const id = user._id
-      console.log(id)
-    })
-}
-
 // Login Method
 router.login = (req, res) => {
-  captureDetailsLogin(req.body.email)
   res.setHeader('Content-Type', 'application/json')
   const { email } = req.body
   User.findOne({ email })
@@ -98,7 +79,6 @@ router.login = (req, res) => {
             .send({ auth: true, message: 'Login Successful', token: token })
         })
         .catch(err => {
-          // where the error is
           return res.status(409).send({ error: err })
         })
     })
@@ -109,5 +89,15 @@ router.login = (req, res) => {
       return res.status(401).send(err)
     })
 }
+
+router.logout = function (req, res) {
+  req.session.destroy(function (err) {
+      if (err) {
+          console.log("Error Logging Out: ", err);
+          return next(err);
+      }
+      res.status(200).send();
+  });
+};
 
 module.exports = router

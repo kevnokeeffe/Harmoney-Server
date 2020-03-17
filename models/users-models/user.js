@@ -1,26 +1,51 @@
 let mongoose = require('mongoose')
-let Schema = mongoose.Schema
+const validator = require('validator')
 const bcrypt = require('bcryptjs')
-let UsersSchema = new Schema(
+
+// Define user model schema
+const UserSchema = new mongoose.Schema(
   {
-    fName: { type: String },
-    lName: { type: String },
+    fName: {
+      type: String,
+      required: true
+    },
+    lName: {
+      type: String,
+      required: true
+    },
+    phone: {
+      type: String,
+      required: true
+    },
+    verified: {
+      type: Boolean,
+      default: false
+    },
+    authyId: { type: String, default: process.env.ACCOUNT_SECURITY_API_KEY },
     email: {
       type: String,
       required: true,
       unique: true,
-      match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+      minLength: 5,
+      trim: true,
+      match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+      validate: {
+        validator: validator.isEmail,
+        message: '{VALUE} is not a valid email!'
+      }
     },
-    password: { type: String, required: true }
+    password: {
+      type: String,
+      required: true,
+      trim: true
+    }
   },
-  { collection: 'users' }
+  { collection: 'authyUsers' }
 )
 
-UsersSchema.statics.passwordMatches = function(password, hash) {
-  return bcrypt.compareSync(password, hash)
-}
+UserSchema.set('timestamps', true)
 
-UsersSchema.pre('save', function(next) {
+UserSchema.pre('save', function(next) {
   let user = this
 
   if (!user.isModified('password')) {
@@ -37,4 +62,4 @@ UsersSchema.pre('save', function(next) {
   })
 })
 
-module.exports = mongoose.model('User', UsersSchema)
+module.exports = mongoose.model('UserAuthy', UserSchema)

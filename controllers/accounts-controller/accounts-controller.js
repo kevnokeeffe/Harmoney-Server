@@ -31,7 +31,7 @@ router.getAllCurrentAccounts = async (req,res) => {
         .send({ account:account })
       })
       .catch(error => {
-        console.log(error)
+        return error
       })
   }
 
@@ -46,7 +46,7 @@ router.getAllCurrentAccounts = async (req,res) => {
         .send({ account:account })
       })
       .catch(error => {
-        console.log(error)
+        return error
       })
   }
 
@@ -61,7 +61,7 @@ router.getAllCurrentAccounts = async (req,res) => {
         .send({ account:account })
       })
       .catch(error => {
-        console.log(error)
+        return error
       })
   }
 
@@ -76,7 +76,7 @@ router.getAllCurrentAccounts = async (req,res) => {
         .send({ account:account })
       })
       .catch(error => {
-        console.log(error)
+        return error
       })
   }
 
@@ -91,7 +91,7 @@ router.getAllCurrentAccounts = async (req,res) => {
         .send({ account:account })
       })
       .catch(error => {
-        console.log(error)
+        return error
       })
   }
 

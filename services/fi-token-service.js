@@ -72,7 +72,7 @@ router.saveAccessToken = async (tokenA) => {
 }
 
 router.decodeHeaderToken = (req) => {
-  let checkToken = req.header('Authorization')
+  let checkToken = req.header('authenticate')
   const decodeToken = jwt.decode(checkToken)
   return decodeToken
 }
@@ -95,12 +95,10 @@ router.getUserID = (decodeToken) => {
 }
 
 findAccountByUserID = (uID) => {
-    //console.log(uID)
   Account.findOne({ userID: uID},(error,account) => {
     if(error || !account) {
-        console.log("error")
+        return badMessage
       }
-      //console.log(account)
     return account
   })
 }

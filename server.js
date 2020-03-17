@@ -11,6 +11,8 @@ const userRoutes = require('./routes/user-routes')
 const privateRoutes = require('./routes/private')
 const fiRoutes = require('./routes/financial-institution-routes')
 const accountRoutes = require('./routes/account-routes')
+// Authy Test
+// const authyTest = require('./routes/authy-test')
 let app = express()
 app.use(cors())
 // view engine setup
@@ -27,15 +29,16 @@ require('dotenv').config()
 app.get('/', (req, res) => {
   res.send('welcome')
 })
-app.use('/api/test', userRoutes)
 app.use('/api/auth', userRoutes)
 app.use('/auth-private', privateRoutes)
 app.use('/api/fi', fiRoutes)
 app.use('/api/account', accountRoutes)
+// app.use('/api/authy', authyTest)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(406))
 })
+
 
 // error handler
 app.use(function(err, req, res, next) {
