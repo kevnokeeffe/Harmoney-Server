@@ -2,9 +2,10 @@ const User = require('../../models/users-models/user')
 let express = require('express')
 let router = express.Router()
 const twilio = require('twilio')
+const bcrypt = require('bcryptjs')
 let auth = require('../../services/auth-service')
 let code = ''
-
+let code2 = ''
 // Login Method
 router.authyLogin = (req, res) => {
   res.setHeader('Content-Type', 'application/json')
@@ -12,7 +13,7 @@ router.authyLogin = (req, res) => {
   User.findOne({ email })
     .then(user => {
       if (!user) {
-        return res.status(404).send(err, { message: 'User not found' })
+        return res.send({message:false})
       }
       bcrypt
         .compare(req.body.password, user.password)
@@ -70,12 +71,8 @@ router.registerAuthy = (req, res) => {
     })
 }
 
-router.signUp = async (req, res) => {
-  let verCode = await this.authy(req)
-}
-
-// Method to generate a random code
-randomCode = () => {
+// Method to generate a random code for Sign-up
+randomCodeSignUp = () => {
   let chars = 'acdefhiklmnoqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(
     ''
   )
@@ -88,12 +85,12 @@ randomCode = () => {
   return result
 }
 
-// Method to send random code via text message
+// Method to send random code via text message for sign-up validation
 router.validate = (req, res) => {
   let accountSid = process.env.TWILIO_ACCOUNT_SID // The Account SID from Twilio
   let authToken = process.env.TWILIO_AUTH_TOKEN // The Auth Token from Twilio
   let client = new twilio(accountSid, authToken)
-  code = randomCode()
+  code = randomCodeSignUp()
   client.messages
     .create({
       body: code, // Generated random code
@@ -108,12 +105,83 @@ router.validate = (req, res) => {
     })
 }
 
+// Authy code validation method for sign-up
 router.validateCode = (req, res) => {
   if (req.body.vCode === code) {
     return res.status(200).send({ message: true })
   } else {
     return res.send({ message: false })
   }
+}
+
+// Logout method
+router.authyLogout = function (req, res) {
+  req.session.destroy(function (err) {
+      if (err) {
+          console.log("Error Logging Out: ", err);
+          return next(err);
+      }
+      res.status(200).send();
+  });
+};
+
+// Find a users phone number via email send true to server if found false if not
+// If found triger the validate function to send verification text to mobile number.
+router.authyUserEmail = (req,res) => {
+  res.setHeader('Content-Type', 'application/json')
+  const { email } = req.body
+  User.findOne({ email })
+    .then(user => {
+      if (!user) {
+        return res.send({message: false})
+      }
+      validate(user.phone)
+      //console.log(user.phone)
+      return res.send({message:true})
+    })
+}
+
+// Method to send random code via text message for login validation
+validate = (phone) => {
+  let accountSid = process.env.TWILIO_ACCOUNT_SID // The Account SID from Twilio
+  let authToken = process.env.TWILIO_AUTH_TOKEN // The Auth Token from Twilio
+  let client = new twilio(accountSid, authToken)
+  code2 = randomCodeLogin()
+  console.log(phone)
+  client.messages
+    .create({
+      body: code2, // Generated random code
+      to: phone, // Text this number
+      from: process.env.TWILIO_PHONE_NUMBER // From a valid Twilio number
+    })
+    .then(() => {
+      return res.status(200).send({ auth: true, message: true })
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Error Invalid Inputs', error: err })
+    })
+}
+
+// Authy code validation method for login
+router.validateCode = (req, res) => {
+  if (req.body.vCode === code2) {
+    return res.status(200).send({ message: true })
+  } else {
+    return res.send({ message: false })
+  }
+}
+
+randomCodeLogin = () => {
+  let chars = '0123456789'.split(
+    ''
+  )
+  let count = 6
+  let result = ''
+  for (let i = 0; i < count; i++) {
+    let x = Math.floor(Math.random() * chars.length)
+    result += chars[x]
+  }
+  return result
 }
 
 module.exports = router
