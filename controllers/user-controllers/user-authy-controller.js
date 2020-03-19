@@ -135,16 +135,16 @@ router.authyUserEmail = (req,res) => {
       if (!user) {
         return res.send({message: false})
       }
-      validate(user.phone)
+      validateLogin(user.phone)
       //console.log(user.phone)
       return res.send({message:true})
     })
 }
 
 // Method to send random code via text message for login validation
-validate = (phone) => {
-  let accountSid = process.env.TWILIO_ACCOUNT_SID // The Account SID from Twilio
-  let authToken = process.env.TWILIO_AUTH_TOKEN // The Auth Token from Twilio
+validateLogin = (phone) => {
+  let accountSid = process.env.TWILIO_ACCOUNT_SID_LOGIN // The Account SID from Twilio
+  let authToken = process.env.TWILIO_AUTH_TOKEN_LOGIN // The Auth Token from Twilio
   let client = new twilio(accountSid, authToken)
   code2 = randomCodeLogin()
   console.log(phone)
@@ -152,7 +152,7 @@ validate = (phone) => {
     .create({
       body: code2, // Generated random code
       to: phone, // Text this number
-      from: process.env.TWILIO_PHONE_NUMBER // From a valid Twilio number
+      from: process.env.TWILIO_PHONE_NUMBER_LOGIN // From a valid Twilio number
     })
     .then(() => {
       return res.status(200).send({ auth: true, message: true })
