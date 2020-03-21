@@ -7,8 +7,10 @@ const auth = require('../middleware/authenticate')
 // router.post('/account', controller.create)
 
 // CURRENT ACCOUNTS
+// From local server
+router.get('/current-all-local',  controller.getLocalcurrentAccounts)
 // Get all current accounts in one call.
-router.get('/current-all',  controller.getAll)
+router.get('/current-all',  controller.getAllCurrent)
 // Individual current account calls.
 router.get('/current-all-wit',  controller.getAllWITcurrentAccounts)
 router.get('/current-all-aib', auth.verifyToken, controller.getAllAIBcurrentAccounts)
@@ -16,7 +18,7 @@ router.get('/current-all-cu', auth.verifyToken, controller.getAllCUcurrentAccoun
 router.get('/current-all-post', auth.verifyToken, controller.getAllPostCurrentAccounts)
 
 // Savings Accounts
-router.get('/savings-all', auth.verifyToken, controller.getAllSavingsAccounts)
+router.get('/savings-all', auth.verifyToken, controller.getAllSavings)
 
 router.get('/current-individual/:id', auth.verifyToken, controller.getIndividualCurrentAccount)
 router.get('/savings-individual/:id', controller.getIndividualSavingsAccount)

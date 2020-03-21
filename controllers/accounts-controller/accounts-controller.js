@@ -157,7 +157,7 @@ router.getAllCUcurrentAccounts = async (req, res) => {
 }
 
 // Get all current accounts method.
-router.getAll = async (req, res) => {
+router.getAllCurrent = async (req, res) => {
   res.setHeader('Content-Type', 'application/json')
   const requestCU = axios.get(
     process.env.CREDIT_UNION_SERVER + 'api/account/find-current-all'
@@ -175,13 +175,65 @@ router.getAll = async (req, res) => {
     .all([requestCU, requestPost, requestWIT, requestAIB])
     .then(
       await axios.spread((requestCU, requestPost, requestWIT, requestAIB) => {
-        const currentAccounts = {
-          creditUnion: requestCU.data.account[0],
-          AnPost: requestPost.data.account[0],
-          BOW: requestWIT.data.account[0],
-          AIB: requestAIB.data.account[0]
-        }
+        const currentAccounts = [
+          creditUnion = requestCU.data.account[0],
+          AnPost = requestPost.data.account[0],
+          BOW = requestWIT.data.account[0],
+          AIB = requestAIB.data.account[0]
+        ]
         return res.status(200).send({currentAccounts})
+      })
+    )
+    .catch(error => {
+      return res.status(402).json({ message: 'Invalid!' })
+    })
+}
+
+
+// Method used for testing - get local current accounts
+router.getLocalcurrentAccounts = async (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
+  await axios
+    .get(process.env.BANK_SERVER + 'api/account/find-current-all', {
+      headers: {
+        // Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    })
+    .then(response => {
+      let accountLocal = response.data.account
+      return res.status(200).send(accountLocal)
+    })
+    .catch(error => {
+      return res.status(402).json({ message: 'Invalid!' })
+    })
+}
+
+// Get all savings accounts method.
+router.getAllSavings = async (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
+  const requestCU = axios.get(
+    process.env.CREDIT_UNION_SERVER + 'api/account/find-savings-all'
+  )
+  const requestPost = axios.get(
+    process.env.AN_POST_SERVER + 'api/account/find-savings-all'
+  )
+  const requestWIT = axios.get(
+    process.env.WIT_BANK_SERVER + 'api/account/find-savings-all'
+  )
+  const requestAIB = axios.get(
+    process.env.AIB_BANK_SERVER + 'api/account/find-savings-all'
+  )
+  await axios
+    .all([requestCU, requestPost, requestWIT, requestAIB])
+    .then(
+      await axios.spread((requestCU, requestPost, requestWIT, requestAIB) => {
+        const savingsAccounts = [
+          creditUnion = requestCU.data.account[0],
+          AnPost = requestPost.data.account[0],
+          BOW = requestWIT.data.account[0],
+          AIB = requestAIB.data.account[0]
+        ]
+        return res.status(200).send({savingsAccounts})
       })
     )
     .catch(error => {

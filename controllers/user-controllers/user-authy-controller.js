@@ -119,9 +119,9 @@ router.authyLogout = function (req, res) {
   req.session.destroy(function (err) {
       if (err) {
           console.log("Error Logging Out: ", err);
-          return next(err);
+          return res.status(400).send({message:false})
       }
-      res.status(200).send();
+      res.status(200).send({message:true});
   });
 };
 
