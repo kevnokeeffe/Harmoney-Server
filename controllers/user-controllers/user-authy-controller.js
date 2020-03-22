@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs')
 let auth = require('../../services/auth-service')
 let code = ''
 let code2 = ''
+let message = ''
 // Login Method
 router.authyLogin = (req, res) => {
   res.setHeader('Content-Type', 'application/json')
@@ -73,7 +74,7 @@ router.registerAuthy = (req, res) => {
 
 // Method to generate a random code for Sign-up
 randomCodeSignUp = () => {
-  let chars = 'acdefhiklmnoqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(
+  let chars = 'acdefhikmnoqrstuvwxyz0123456789ABCDEFGHJKLMNPQRSTUVWXYZ'.split(
     ''
   )
   let count = 10
@@ -83,6 +84,22 @@ randomCodeSignUp = () => {
     result += chars[x]
   }
   return result
+}
+
+// Method to see if the user email exists on the database already
+router.authyUserCheckSignUpEmail = (req,res) => {
+  res.setHeader('Content-Type', 'application/json')
+  const { email } = req.body
+  User.findOne({ email })
+    .then(user => {
+      if (!user) {
+        return res.send({message: true})
+        
+      }
+      return res.send({message:false})
+    }).catch(err => {
+      res.status(501).json({ message: 'Error Invalid Inputs', error: err })
+    })
 }
 
 // Method to send random code via text message for sign-up validation
@@ -101,13 +118,15 @@ router.validate = (req, res) => {
       return res.status(200).send({ auth: true, message: true })
     })
     .catch(err => {
-      res.status(500).json({ message: 'Error Invalid Inputs', error: err })
+      res.status(501).json({ message: 'Error Invalid Inputs', error: err })
     })
 }
 
 // Authy code validation method for sign-up
 router.validateCode = (req, res) => {
+  console.log(req.body.vCode)
   if (req.body.vCode === code) {
+    console.log(code)
     return res.status(200).send({ message: true })
   } else {
     return res.send({ message: false })
@@ -133,7 +152,9 @@ router.authyUserEmail = (req,res) => {
   User.findOne({ email })
     .then(user => {
       if (!user) {
+        console.log("message")
         return res.send({message: false})
+        
       }
       validateLogin(user.phone)
       //console.log(user.phone)
@@ -163,7 +184,7 @@ validateLogin = (phone) => {
 }
 
 // Authy code validation method for login
-router.validateCode = (req, res) => {
+router.validateCodeLogin = (req, res) => {
   if (req.body.vCode === code2) {
     return res.status(200).send({ message: true })
   } else {
