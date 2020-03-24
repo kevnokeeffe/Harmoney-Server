@@ -6,9 +6,9 @@ const auth = require('../services/auth-service')
 const authyUserController = require('../controllers/user-controllers/user-authy-controller')
 
 // Register Route
-router.post('/register', userController.register)
+//router.post('/register', userController.register)
 // Login Route
-router.post('/login', userController.login)
+//router.post('/login', userController.login)
 
 // Authy Register Route 
 router.post('/authy-register', authyUserController.registerAuthy)

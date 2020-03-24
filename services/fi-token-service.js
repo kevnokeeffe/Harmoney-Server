@@ -14,12 +14,12 @@ router.saveRefreshToken = async (tokenB, uID) => {
   const userFiID = getUserFiID(fiToken)
   const fiEmail = getEmail(fiToken)
   //Create Bank Account
-  //createAccount(tokenB)
   Account.findOne({financialInstitutionID:fiID}, (error, account) => {
     if (error || !account) {
       createAccount(tokenB, fiID,userFiID,fiEmail ,uID)
     }
     else{
+      // Update account
       const updateAccount = account
     updateAccount.financialInstitutionID = fiID
     updateAccount.userFiID = userFiID //fk

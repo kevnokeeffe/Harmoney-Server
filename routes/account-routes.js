@@ -10,9 +10,9 @@ const auth = require('../middleware/authenticate')
 // From local server
 router.get('/current-all-local',  controller.getLocalcurrentAccounts)
 // Get all current accounts in one call.
-router.get('/current-all',  controller.getAllCurrent)
+router.get('/current-all', auth.verifyToken,  controller.getLocalcurrentAccounts)
 // Individual current account calls.
-router.get('/current-all-wit',  controller.getAllWITcurrentAccounts)
+router.get('/current-all-wit', auth.verifyToken,  controller.getAllWITcurrentAccounts)
 router.get('/current-all-aib', auth.verifyToken, controller.getAllAIBcurrentAccounts)
 router.get('/current-all-cu', auth.verifyToken, controller.getAllCUcurrentAccounts)
 router.get('/current-all-post', auth.verifyToken, controller.getAllPostCurrentAccounts)
