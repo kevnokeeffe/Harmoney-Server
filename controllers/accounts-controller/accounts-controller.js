@@ -1,16 +1,8 @@
 let express = require('express')
 let router = express.Router()
 const axios = require('axios')
-let authRefresh = require('../../services/refresh-token-service')
-let authAccess = require('../../services/access-token-service')
 const FiRecord = require('../../models/financial-institution/financial-institution-details')
 const FiDetails = require('../../models/financial-institution/account')
-let tokenPost = null
-let postAccount = null
-// import  User from '../db/models/user-model'
-// import Account from '../db/models/financial-institution/account'
-// import moment from 'moment'
-// import auth from '../../services/auth-service'
 
 router.getAllSavingsAccounts = async (req, res) => {
   res.setHeader('Content-Type', 'application/json')
@@ -115,7 +107,6 @@ router.getAllWITcurrentAccounts = async (req, res) => {
             const currentAccounts = [
               (account = account)
             ]
-            console.log(currentAccounts)
             return res.status(200).send({ currentAccounts })
           })
           .catch(error => {
@@ -154,7 +145,6 @@ router.getAllAIBcurrentAccounts = async (req, res) => {
             const currentAccounts = [
               (account = account)
             ]
-            console.log(currentAccounts)
             return res.status(200).send({ currentAccounts })
           })
           .catch(error => {
@@ -175,15 +165,12 @@ router.getAllPostCurrentAccounts = async (req, res) => {
   let name = 'Post Office'
   FiRecord.findOne({ fiName: name }).then(user => {
     let id = user.id
-    console.log(id)
     FiDetails.findOne({ financialInstitutionID: id })
       .then(resp => {
         if(resp != null){
-        refreshToken = resp.refreshToken
-        console.log(refreshToken)}
+        refreshToken = resp.refreshToken}
       })
       .then(async () => {
-        console.log(refreshToken)
         if(refreshToken!=null){
         await axios
           .get(process.env.AN_POST_SERVER + '/api/account/find-current-all', {
@@ -192,12 +179,10 @@ router.getAllPostCurrentAccounts = async (req, res) => {
             }
           })
           .then(response => {
-            console.log(response)
             let account = response.data.account
             const currentAccounts = [
               (account = account)
             ]
-            console.log(currentAccounts)
             return res.status(200).send({ account })
           })
           .catch(error => {
@@ -236,7 +221,7 @@ router.getAllCUcurrentAccounts = async (req, res) => {
             const currentAccounts = [
               (account = account)
             ]
-            console.log(currentAccounts)
+
             return res.status(200).send({ currentAccounts })
           })
           .catch(error => {
@@ -293,7 +278,6 @@ router.getAllCurrent = async (req, res) => {
                         .then(resp => {
                           ;(AIBrt = resp.refreshToken),
                             (AIBat = resp.accessToken)
-                          console.log(AIBrt)
                         })
                         .then(async () => {
                           const requestCU = axios.get(
@@ -345,7 +329,6 @@ router.getAllCurrent = async (req, res) => {
                               //(BOW = witAccount),
                               //(AIB = aibAccount)
                             ]
-                            console.log(currentAccounts)
                             return res.status(200).send({ currentAccounts })
                           })
                         })
@@ -383,7 +366,6 @@ router.getLocalcurrentAccounts = async (req, res) => {
             const currentAccounts = [
               (account = account)
             ]
-            console.log(currentAccounts)
             return res.status(200).send({ currentAccounts })
           })
           .catch(error => {
@@ -401,14 +383,12 @@ router.getAllCurrentAccounts = async (req, res) => {
   res.setHeader('Content-Type', 'application/json')
   let name = "AIB"
   const carrot = await getOne(name)
-  console.log(carrot)
 } // End
 
 
 getOne = async (req,res) =>{
   await FiRecord.findOne({ fiName: req }).then(fi => {
     let id = fi.id
-    console.log(id)
     return id
 })
 }

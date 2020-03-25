@@ -11,9 +11,8 @@ let TokenService = require('../../services/fi-token-service')
 router.loginAccess = async (req,res) => {
     const user = { email : req.body.email, password : req.body.password}
     res.setHeader('Content-Type', 'application/json')
-    console.log("works here")
     await axios
-      .post(`${process.env.BANK_SERVER}/api/user/login-access`, user)
+      .post(`${process.env.BANK_SERVER}/api/user/login/access`, user)
       .then(response => {
         let tokenA = response.data.token
         TokenService.saveAccessToken(tokenA)
@@ -39,12 +38,11 @@ router.loginAccess = async (req,res) => {
   router.loginRefresh = async (req,res) => {
     res.setHeader('Content-Type', 'application/json')
     const user = { email : req.body.email, password : req.body.password}
-    console.log(user)
     // Get token in header. Used to check who the userID is.
     const decodeToken  = TokenService.decodeHeaderToken(req)
     const userID = TokenService.getUserID(decodeToken);
     await axios
-      .post(`${process.env.BANK_SERVER}/api/user/login-refresh`, user)
+      .post(`${process.env.BANK_SERVER}/api/user/login/refresh`, user)
       .then(response => {
         if(response.auth === false){ return res.status(401).send({auth:false, token:null, message:"Invalid Login"})}
         let tokenB = response.data.token
@@ -88,7 +86,6 @@ router.helloBank = async (req,res) => {
     await axios
       .get(`${process.env.BANK_SERVER}/api/test/bank`)
       .then(res => {
-        console.log(res.data.message)
         return res.status(200).send(res.data.message)
       })
       .catch(error => {
@@ -116,7 +113,6 @@ router.helloBank = async (req,res) => {
       .all([requestCU, requestPost, requestWIT, requestAIB])
       .then(
         await axios.spread((requestCU, requestPost, requestWIT, requestAIB) => {
-          //console.log(requestCU.data.fiAccount)
           const fiRecord = new FiRecord({
             fiName: requestCU.data.fiAccount.fiName,
             id:requestCU.data.fiAccount.id
@@ -148,12 +144,11 @@ router.helloBank = async (req,res) => {
   router.loginRefreshAIB = async (req,res) => {
     res.setHeader('Content-Type', 'application/json')
     const user = { email : req.body.email, password : req.body.password}
-    console.log(user)
     // Get token in header. Used to check who the userID is.
     const decodeToken  = TokenService.decodeHeaderToken(req)
     const userID = TokenService.getUserID(decodeToken);
     await axios
-      .post(`${process.env.AIB_BANK_SERVER}/api/user/login-refresh`, user)
+      .post(`${process.env.AIB_BANK_SERVER}/api/user/login/refresh`, user)
       .then(response => {
         if(response.auth === false){ return res.status(401).send({auth:false, token:null, message:"Invalid Login"})}
         let tokenB = response.data.token
@@ -172,7 +167,7 @@ router.helloBank = async (req,res) => {
     const decodeToken  = TokenService.decodeHeaderToken(req)
     const userID = TokenService.getUserID(decodeToken);
     await axios
-      .post(`${process.env.WIT_BANK_SERVER}/api/user/login-refresh`, user)
+      .post(`${process.env.WIT_BANK_SERVER}/api/user/login/refresh`, user)
       .then(response => {
         if(response.auth === false){ return res.status(401).send({auth:false, token:null, message:"Invalid Login"})}
         let tokenB = response.data.token
@@ -191,7 +186,7 @@ router.helloBank = async (req,res) => {
     const decodeToken  = TokenService.decodeHeaderToken(req)
     const userID = TokenService.getUserID(decodeToken);
     await axios
-      .post(`${process.env.CREDIT_UNION_SERVER}/api/user/login-refresh`, user)
+      .post(`${process.env.CREDIT_UNION_SERVER}/api/user/login/refresh`, user)
       .then(response => {
         if(response.auth === false){ return res.status(401).send({auth:false, token:null, message:"Invalid Login"})}
         let tokenB = response.data.token
@@ -210,7 +205,7 @@ router.helloBank = async (req,res) => {
     const decodeToken  = TokenService.decodeHeaderToken(req)
     const userID = TokenService.getUserID(decodeToken);
     await axios
-      .post(`${process.env.AN_POST_SERVER}/api/user/login-refresh`, user)
+      .post(`${process.env.AN_POST_SERVER}/api/user/login/refresh`, user)
       .then(response => {
         if(response.auth === false){ return res.status(401).send({auth:false, token:null, message:"Invalid Login"})}
         let tokenB = response.data.token
@@ -226,9 +221,9 @@ router.helloBank = async (req,res) => {
 router.loginAccessWIT = async (req,res) => {
   const user = { email : req.body.email, password : req.body.password}
   res.setHeader('Content-Type', 'application/json')
-  console.log("works here")
+
   await axios
-    .post(`${process.env.WIT_BANK_SERVER}/api/user/login-access`, user)
+    .post(`${process.env.WIT_BANK_SERVER}/api/user/login/access`, user)
     .then(response => {
       let tokenA = response.data.token
       TokenService.saveAccessToken(tokenA)
@@ -243,9 +238,8 @@ router.loginAccessWIT = async (req,res) => {
 router.loginAccessAIB = async (req,res) => {
   const user = { email : req.body.email, password : req.body.password}
   res.setHeader('Content-Type', 'application/json')
-  console.log("works here")
   await axios
-    .post(`${process.env.AIB_BANK_SERVER}/api/user/login-access`, user)
+    .post(`${process.env.AIB_BANK_SERVER}/api/user/login/access`, user)
     .then(response => {
       let tokenA = response.data.token
       TokenService.saveAccessToken(tokenA)
@@ -260,9 +254,8 @@ router.loginAccessAIB = async (req,res) => {
 router.loginAccessPost = async (req,res) => {
   const user = { email : req.body.email, password : req.body.password}
   res.setHeader('Content-Type', 'application/json')
-  console.log("works here")
   await axios
-    .post(`${process.env.AN_POST_SERVER}/api/user/login-access`, user)
+    .post(`${process.env.AN_POST_SERVER}/api/user/login/access`, user)
     .then(response => {
       let tokenA = response.data.token
       TokenService.saveAccessToken(tokenA)
@@ -277,9 +270,8 @@ router.loginAccessPost = async (req,res) => {
 router.loginAccessCU = async (req,res) => {
   const user = { email : req.body.email, password : req.body.password}
   res.setHeader('Content-Type', 'application/json')
-  console.log("works here")
   await axios
-    .post(`${process.env.CREDIT_UNION_SERVER}/api/user/login-access`, user)
+    .post(`${process.env.CREDIT_UNION_SERVER}/api/user/login/access`, user)
     .then(response => {
       let tokenA = response.data.token
       TokenService.saveAccessToken(tokenA)
