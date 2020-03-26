@@ -15,8 +15,8 @@
     "start:watch": "cross-env NODE_ENV=dev nodemon --exec babel-node bin/www",
     "compile": "babel ./ --out-dir dist/ --ignore ./node_modules,./test --copy-files",
     "lint": "esw  ./test ./routes ./models/ server.js bin/www ",
-"lint:fix": "npm run lint -- --fix --exit",
-"lint:watch": "npm run lint -- --watch --exit"
+    "lint:fix": "npm run lint -- --fix --exit",
+    "lint:watch": "npm run lint -- --watch --exit"
   },
   "author": "Kevin O'Keeffe",
   "license": "ISC",
