@@ -2,4 +2,4 @@
 
 [![coverage report](https://gitlab.com/kevnok/harmoney-server/badges/master/coverage.svg)](https://gitlab.com/kevnok/harmoney-server/badges/master/coverage.svg?job=coverage)
 
-## Donations Web API.
+## Harmon€y Web API.
