@@ -45,7 +45,10 @@ coverage:
 
 pages:
   stage: deploy
+  dependencies:
+    - coverage
   script:
+    - mv coverage public
     - echo "Publish website"
   artifacts:
     paths:
