@@ -10,6 +10,7 @@
     "build": "npm run compile",
     "postbuild": "npm start",
     "prebuild": "npm-run-all test clean",
+    "postinstall": "rimraf ./dist && npm run compile:all",
     "clean": "rimraf ./dist && mkdir dist",
     "start:www": "node ./bin/www",
     "dev": "nodemon ./bin/www",
