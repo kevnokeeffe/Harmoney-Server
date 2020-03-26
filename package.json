@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha ",
+    "test:report": "nyc mocha",
     "start": "cross-env NODE_ENV=dev PORT=4000 node dist/bin/www",
     "build": "npm run compile",
     "postbuild": "npm start",
@@ -13,7 +14,7 @@
     "start:www": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "start:watch": "cross-env NODE_ENV=dev nodemon --exec babel-node bin/www",
-    "compile": "babel ./ --out-dir dist/ --ignore ./node_modules,./test --copy-files",
+    "compile:all": "babel ./ --out-dir dist/ --ignore ./node_modules,./test --copy-files",
     "lint": "esw  ./test ./routes ./models/ server.js bin/www ",
     "lint:fix": "npm run lint -- --fix --exit",
     "lint:watch": "npm run lint -- --watch --exit"
