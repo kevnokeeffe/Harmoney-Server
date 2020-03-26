@@ -1,3 +1,5 @@
+const expect = require('chai').expect;
+
 // Demo tests:
 describe('testing test', () => {
 	it('should add two numbers correctly', function () {
