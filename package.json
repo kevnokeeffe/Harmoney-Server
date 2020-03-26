@@ -23,7 +23,7 @@
     "compile:services": "babel ./services --out-dir dist/services",
     "compile:test": "babel ./test --out-dir dist/test",
     "compile:utilities": "babel ./utilities --out-dir dist/utilities",
-    "compile:copy": "ncp ./bin/ ./dist/bin && ncp ./public/ ./dist/public && ncp ./views/ ./dist/views",
+    "compile:copy": "ncp ./node_modules/ ./dist/node_modules && ncp ./bin/ ./dist/bin && ncp ./public/ ./dist/public && ncp ./views/ ./dist/views",
     "compile:all": "npm-run-all compile:models compile:controlers compile:db compile:middleware compile:routes compile:services compile:test compile:utilities compile:copy",
     "lint": "esw  ./test ./routes ./models/ server.js bin/www ",
     "lint:fix": "npm run lint -- --fix --exit",
