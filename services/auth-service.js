@@ -11,9 +11,10 @@ router.generateJWT = user => {
     id: user._id,
     email: user.email
   }
-  return (token = jwt.sign(tokenData, process.env.SECRET_KEY, {
+  const token = jwt.sign(tokenData, process.env.SECRET_KEY, {
     expiresIn: 11300000 // 5 Minutes
-  }))
+  })
+  return token
 }
 
 router.decodeToken = (req) => {
