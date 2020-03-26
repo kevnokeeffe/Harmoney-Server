@@ -75,7 +75,7 @@ router.registerAuthy = (req, res) => {
 };
 
 // Method to generate a random code for Sign-up
-randomCodeSignUp = () => {
+router.randomCodeSignUp = () => {
 	let chars = 'acdefhikmnoqrstuvwxyz0123456789ABCDEFGHJKLMNPQRSTUVWXYZ'.split(
 		''
 	);
@@ -109,7 +109,7 @@ router.validate = (req, res) => {
 	let accountSid = process.env.TWILIO_ACCOUNT_SID; // The Account SID from Twilio
 	let authToken = process.env.TWILIO_AUTH_TOKEN; // The Auth Token from Twilio
 	let client = new twilio(accountSid, authToken);
-	code = randomCodeSignUp();
+	code = this.randomCodeSignUp();
 	client.messages
 		.create({
 			body: code, // Generated random code
@@ -158,18 +158,18 @@ router.authyUserEmail = (req,res) => {
 				return res.send({message: false});
         
 			}
-			validateLogin(user.phone);
+			this.validateLogin(user.phone);
 			//console.log(user.phone)
 			return res.send({message: true});
 		});
 };
 
 // Method to send random code via text message for login validation
-validateLogin = (phone) => {
+router.validateLogin = (phone) => {
 	let accountSid = process.env.TWILIO_ACCOUNT_SID_LOGIN; // The Account SID from Twilio
 	let authToken = process.env.TWILIO_AUTH_TOKEN_LOGIN; // The Auth Token from Twilio
 	let client = new twilio(accountSid, authToken);
-	code2 = randomCodeLogin();
+	code2 = this.randomCodeLogin();
 	console.log(phone);
 	client.messages
 		.create({
@@ -194,7 +194,7 @@ router.validateCodeLogin = (req, res) => {
 	}
 };
 
-randomCodeLogin = () => {
+router.randomCodeLogin = () => {
 	let chars = '0123456789'.split(
 		''
 	);

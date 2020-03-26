@@ -8,14 +8,14 @@ let goodMessage = 'Successfull Update';
 let badMessage = 'Unsuccessfull Update';
 
 router.saveRefreshToken = async (tokenB, uID) => {
-	const fiToken = decodeToken(tokenB);
-	const fiID = getFiID(fiToken);
-	const userFiID = getUserFiID(fiToken);
-	const fiEmail = getEmail(fiToken);
+	const fiToken = this.decodeToken(tokenB);
+	const fiID = this.getFiID(fiToken);
+	const userFiID = this.getUserFiID(fiToken);
+	const fiEmail = this.getEmail(fiToken);
 	//Create Bank Account
 	Account.findOne({financialInstitutionID: fiID}, (error, account) => {
 		if (error || !account) {
-			createAccount(tokenB, fiID,userFiID,fiEmail ,uID);
+			this.createAccount(tokenB, fiID,userFiID,fiEmail ,uID);
 		}
 		else {
 			// Update account
@@ -34,7 +34,7 @@ router.saveRefreshToken = async (tokenB, uID) => {
 	});
 };
 
-createAccount = (tokenB, fiID, userFiID, fiEmail ,uID) => {
+router.createAccount = (tokenB, fiID, userFiID, fiEmail ,uID) => {
 	const account = new Account({
 		userID: uID,
 		email: null,
@@ -76,14 +76,14 @@ router.decodeHeaderToken = (req) => {
 	return decodeToken;
 };
 
-decodeHeaderTokenInt = (req) => {
+router.decodeHeaderTokenInt = (req) => {
 	let checkToken = req.header('Authorization');
 	const decodeToken = jwt.decode(checkToken);
 	return decodeToken;
 };
 
 
-getUserIDint = (decodeToken) => {
+router.getUserIDint = (decodeToken) => {
 	let userID = decodeToken.id;
 	return userID;
 };
@@ -93,7 +93,7 @@ router.getUserID = (decodeToken) => {
 	return userID;
 };
 
-findAccountByUserID = (uID) => {
+router.findAccountByUserID = (uID) => {
 	Account.findOne({ userID: uID},(error,account) => {
 		if (error || !account) {
 			return badMessage;
@@ -112,14 +112,14 @@ router.getAccessToken = () => {
   
 };
 
-decodeToken = token => {
+router.decodeToken = token => {
 	if (!token) {
 		return null;
 	}
 	return jwt.decode(token);
 };
 
-getFiID = dToken => {
+router.getFiID = dToken => {
 	if (!dToken) {
 		return null;
 	}
@@ -130,7 +130,7 @@ getFiID = dToken => {
 	}
 };
 
-getEmail = dToken => {
+router.getEmail = dToken => {
 	if (!dToken) {
 		return null;
 	}
@@ -141,7 +141,7 @@ getEmail = dToken => {
 	}
 };
 
-getUserFiID = dToken => {
+router.getUserFiID = dToken => {
 	if (!dToken) {
 		return null;
 	}

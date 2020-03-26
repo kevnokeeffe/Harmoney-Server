@@ -4,7 +4,6 @@ let router = express.Router();
 let User = require('../../models/users-models/user-model');
 const bcrypt = require('bcryptjs');
 let auth = require('../../services/auth-service');
-const Account = require('../../models/financial-institution/account');
 
 // Register Method
 router.register = (req, res) => {
@@ -40,26 +39,26 @@ router.register = (req, res) => {
 		});
 };
 
-createAccount = user => {
-	captureDetailsReg(user);
-	const userEmail = user.email;
-	const id = user._id;
-	const account = new Account({
-		userID: id,
-		email: userEmail,
-		bank: [
-			{
-				financialInstitutionID: null, //fk
-				refreshToken: null,
-				accessToken: null,
-				IBAN: null,
-				userFiID: null,
-				bankEmail: null
-			}
-		]
-	});
-	account.save();
-};
+// router.createAccount = user => {
+// 	this.captureDetailsReg(user);
+// 	const userEmail = user.email;
+// 	const id = user._id;
+// 	const account = new Account({
+// 		userID: id,
+// 		email: userEmail,
+// 		bank: [
+// 			{
+// 				financialInstitutionID: null, //fk
+// 				refreshToken: null,
+// 				accessToken: null,
+// 				IBAN: null,
+// 				userFiID: null,
+// 				bankEmail: null
+// 			}
+// 		]
+// 	});
+// 	account.save();
+// };
 
 // Login Method
 router.login = (req, res) => {

@@ -385,11 +385,11 @@ router.getLocalcurrentAccounts = async (req, res) => {
 router.getAllCurrentAccounts = async (req, res) => {
 	res.setHeader('Content-Type', 'application/json');
 	let name = 'AIB';
-	const carrot = await getOne(name);
+	const carrot = await this.getOne(name);
 }; // End
 
 
-getOne = async (req,res) =>{
+router.getOne = async (req,res) =>{
 	await FiRecord.findOne({ fiName: req }).then(fi => {
 		let id = fi.id;
 		return id;
