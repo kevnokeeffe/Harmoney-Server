@@ -1,3 +1,6 @@
+/* eslint-disable keyword-spacing */
+/* eslint-disable semi */
+/* eslint-disable indent */
 import { StringUtil } from '../../utilities/string-util'
 import User from '../models/user-model'
 import { generateJWT } from '../../services/auth-service'
