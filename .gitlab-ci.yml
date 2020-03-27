@@ -9,13 +9,14 @@ services:
   - mongo
 
 variables:
-  NODE_ENV: 'test'
+  NODE_ENV: 'prod'
 
 # Pipeline:
 stages:
   - install
   - build
-  - deploy
+  - deploy-develop
+  - deploy-production
 
 # Jobs:
 install_dependencies:
@@ -55,12 +56,11 @@ pages:
       - public
     expire_in: 30 days
 
-deploy_staging:
+deploy_develop:
   image: ruby:latest
   only:
     - develop
-    - master
-  stage: deploy
+  stage: deploy-develop
   before_script:
     - apt-get update -qy
     - apt-get install -y ruby-dev
@@ -68,3 +68,17 @@ deploy_staging:
   script:  
     - dpl --provider=heroku --app=$HEROKU_APP_NAME_HARMONEY --api-key=$HEROKU_API_KEY
     - echo "Deployed to staging server"
+
+deploy_production:
+  image: ruby:latest
+  only:
+    - master
+  stage: deploy-production
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+  script:  
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME_HARMONEY --api-key=$HEROKU_API_KEY
+    - echo "Deployed to staging server"
+  
