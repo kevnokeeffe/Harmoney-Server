@@ -15,8 +15,8 @@ variables:
 stages:
   - install
   - build
-  - deploy-develop
-  - deploy-production
+  - deploy:develop
+  - deploy:production
 
 # Jobs:
 install_dependencies:
@@ -60,7 +60,7 @@ deploy_develop:
   image: ruby:latest
   only:
     - develop
-  stage: deploy-develop
+  stage: deploy:develop
   before_script:
     - apt-get update -qy
     - apt-get install -y ruby-dev
@@ -73,7 +73,7 @@ deploy_production:
   image: ruby:latest
   only:
     - master
-  stage: deploy-production
+  stage: deploy:production
   before_script:
     - apt-get update -qy
     - apt-get install -y ruby-dev
