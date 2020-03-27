@@ -9,7 +9,7 @@ let createError = require('http-errors');
 const errorController = require('./controllers/error');
 const cors = require('cors');
 const userRoutes = require('./routes/user-routes');
-const privateRoutes = require('./routes/private');
+// const privateRoutes = require('./routes/private');
 const fiRoutes = require('./routes/financial-institution-routes');
 const accountRoutes = require('./routes/account-routes');
 let app = express();
@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 	res.send('welcome');
 });
 app.use('/api/auth', userRoutes);
-app.use('/auth-private', privateRoutes);
+// app.use('/auth-private', privateRoutes);
 app.use('/api/fi', fiRoutes);
 app.use('/api/account', accountRoutes);
 
