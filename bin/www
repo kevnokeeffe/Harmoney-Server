@@ -11,9 +11,9 @@ let http = require('http');
 /**
  * Get port from environment and store in Express.
  */
-let message = 'Connected on port:';
 let port = normalizePort(process.env.PORT || '3000');
-console.log((message), port);
+// eslint-disable-next-line no-undef
+console.log(message='Connected on port:',port);
 app.set('port', port);
 
 /**

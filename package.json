@@ -7,7 +7,6 @@
     "test": "cross-env NODE_ENV=test mocha ",
     "test:report": "nyc mocha",
     "start": "cross-env NODE_ENV=dev node dist/bin/www",
-    "build": "npm run compile:all",
     "postbuild": "npm run start",
     "prebuild": "npm-run-all test clean",
     "postinstall": "rimraf ./dist && npm run compile:all",
