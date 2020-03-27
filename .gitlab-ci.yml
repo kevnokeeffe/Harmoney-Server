@@ -9,7 +9,7 @@ services:
   - mongo
 
 variables:
-  NODE_ENV: 'prod'
+  NODE_ENV: 'test'
 
 # Pipeline:
 stages:
