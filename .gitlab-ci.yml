@@ -15,8 +15,7 @@ variables:
 stages:
   - install
   - build
-  - deploy:develop
-  - deploy:production
+  - deploy
 
 # Jobs:
 install_dependencies:
@@ -60,7 +59,8 @@ deploy_develop:
   image: ruby:latest
   only:
     - develop
-  stage: deploy:develop
+    - master
+  stage: deploy
   before_script:
     - apt-get update -qy
     - apt-get install -y ruby-dev
@@ -69,16 +69,4 @@ deploy_develop:
     - dpl --provider=heroku --app=$HEROKU_APP_NAME_HARMONEY --api-key=$HEROKU_API_KEY
     - echo "Deployed to staging server"
 
-deploy_production:
-  image: ruby:latest
-  only:
-    - master
-  stage: deploy:production
-  before_script:
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - gem install dpl
-  script:  
-    - dpl --provider=heroku --app=$HEROKU_APP_NAME_HARMONEY --api-key=$HEROKU_API_KEY
-    - echo "Deployed to staging server"
   
