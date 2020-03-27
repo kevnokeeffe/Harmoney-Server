@@ -8,14 +8,14 @@ let goodMessage = 'Successfull Update';
 let badMessage = 'Unsuccessfull Update';
 
 router.saveRefreshToken = async (tokenB, uID) => {
-	const fiToken = this.decodeToken(tokenB);
-	const fiID = this.getFiID(fiToken);
-	const userFiID = this.getUserFiID(fiToken);
-	const fiEmail = this.getEmail(fiToken);
+	const fiToken = decodeToken(tokenB);
+	const fiID = getFiID(fiToken);
+	const userFiID = getUserFiID(fiToken);
+	const fiEmail = getEmail(fiToken);
 	//Create Bank Account
 	Account.findOne({financialInstitutionID: fiID}, (error, account) => {
 		if (error || !account) {
-			this.createAccount(tokenB, fiID,userFiID,fiEmail ,uID);
+			createAccount(tokenB, fiID,userFiID,fiEmail ,uID);
 		}
 		else {
 			// Update account
@@ -34,7 +34,7 @@ router.saveRefreshToken = async (tokenB, uID) => {
 	});
 };
 
-router.createAccount = (tokenB, fiID, userFiID, fiEmail ,uID) => {
+createAccount = (tokenB, fiID, userFiID, fiEmail ,uID) => {
 	const account = new Account({
 		userID: uID,
 		email: null,
@@ -112,14 +112,14 @@ router.getAccessToken = () => {
   
 };
 
-router.decodeToken = token => {
+decodeToken = token => {
 	if (!token) {
 		return null;
 	}
 	return jwt.decode(token);
 };
 
-router.getFiID = dToken => {
+getFiID = dToken => {
 	if (!dToken) {
 		return null;
 	}
@@ -130,7 +130,7 @@ router.getFiID = dToken => {
 	}
 };
 
-router.getEmail = dToken => {
+getEmail = dToken => {
 	if (!dToken) {
 		return null;
 	}
@@ -141,7 +141,7 @@ router.getEmail = dToken => {
 	}
 };
 
-router.getUserFiID = dToken => {
+getUserFiID = dToken => {
 	if (!dToken) {
 		return null;
 	}

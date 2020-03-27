@@ -9,7 +9,6 @@ router.getPostRefreshToken = (req, res) => {
 	FiRecord.findOne({ fiName }).then(user => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id }).then(resp => {
-			console.log(resp.accessToken);
 			let token = resp.accessToken;
 			return res.send(token);
 		});
@@ -20,9 +19,7 @@ router.getAibRefreshToken = (req, res) => {
 	const fiName = 'AIB';
 	FiRecord.findOne({ fiName }).then(user => {
 		let id = user.id;
-		console.log(id);
 		FiDdetails.findOne({ financialInstitutionID: id }).then(resp => {
-			console.log(resp.accessToken);
 			let token = resp.accessToken;
 			return res.send(token);
 		});
@@ -34,7 +31,6 @@ router.getWitRefreshToken = (req, res) => {
 	FiRecord.findOne({ fiName }).then(user => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id }).then(resp => {
-			console.log(resp.accessToken);
 			let token = resp.accessToken;
 			return res.send(token);
 		});
@@ -46,7 +42,6 @@ router.getCuRefreshToken = (req, res) => {
 	FiRecord.findOne({ fiName }).then(user => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id }).then(resp => {
-			console.log(resp.accessToken);
 			let token = resp.accessToken;
 			return res.send(token);
 		});

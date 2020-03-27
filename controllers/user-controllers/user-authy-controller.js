@@ -75,7 +75,7 @@ router.registerAuthy = (req, res) => {
 };
 
 // Method to generate a random code for Sign-up
-router.randomCodeSignUp = () => {
+randomCodeSignUp = () => {
 	let chars = 'acdefhikmnoqrstuvwxyz0123456789ABCDEFGHJKLMNPQRSTUVWXYZ'.split(
 		''
 	);
@@ -109,7 +109,7 @@ router.validate = (req, res) => {
 	let accountSid = process.env.TWILIO_ACCOUNT_SID; // The Account SID from Twilio
 	let authToken = process.env.TWILIO_AUTH_TOKEN; // The Auth Token from Twilio
 	let client = new twilio(accountSid, authToken);
-	code = this.randomCodeSignUp();
+	code = randomCodeSignUp();
 	client.messages
 		.create({
 			body: code, // Generated random code
@@ -126,9 +126,7 @@ router.validate = (req, res) => {
 
 // Authy code validation method for sign-up
 router.validateCode = (req, res) => {
-	console.log(req.body.vCode);
 	if (req.body.vCode === code) {
-		console.log(code);
 		return res.status(200).send({ message: true });
 	} else {
 		return res.send({ message: false });
@@ -139,7 +137,6 @@ router.validateCode = (req, res) => {
 router.authyLogout = function (req, res) {
 	req.session.destroy(function (err) {
 		if (err) {
-			console.log('Error Logging Out: ', err);
 			return res.status(400).send({message: false});
 		}
 		res.status(200).send({message: true});
@@ -154,23 +151,20 @@ router.authyUserEmail = (req,res) => {
 	User.findOne({ email })
 		.then(user => {
 			if (!user) {
-				console.log('message');
 				return res.send({message: false});
         
 			}
-			this.validateLogin(user.phone);
-			//console.log(user.phone)
+			validateLogin(user.phone);
 			return res.send({message: true});
 		});
 };
 
 // Method to send random code via text message for login validation
-router.validateLogin = (phone) => {
+validateLogin = (phone) => {
 	let accountSid = process.env.TWILIO_ACCOUNT_SID_LOGIN; // The Account SID from Twilio
 	let authToken = process.env.TWILIO_AUTH_TOKEN_LOGIN; // The Auth Token from Twilio
 	let client = new twilio(accountSid, authToken);
-	code2 = this.randomCodeLogin();
-	console.log(phone);
+	code2 = randomCodeLogin();
 	client.messages
 		.create({
 			body: code2, // Generated random code
@@ -194,7 +188,7 @@ router.validateCodeLogin = (req, res) => {
 	}
 };
 
-router.randomCodeLogin = () => {
+randomCodeLogin = () => {
 	let chars = '0123456789'.split(
 		''
 	);

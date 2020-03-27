@@ -13,10 +13,12 @@ router.generateJWT = user => {
 		id: user._id,
 		email: user.email
 	};
-	const token = jwt.sign(tokenData, process.env.SECRET_KEY, {
-		expiresIn: 11300000, // 5 Minutes
-		algorithm: 'RS256'
-	});
+
+	let verifyOptions = {
+		expiresIn:  7776000000
+	   };
+
+	const token = jwt.sign(tokenData, process.env.SECRET_KEY, verifyOptions);
 	return token;
 };
 
@@ -63,7 +65,6 @@ router.helloBank = async (req,res) => {
 	await axios
 		.get(process.env.WIT_BANK_SERVER + '/api/test/bank')
 		.then(response => {
-			console.log(response.data.message);
 			return res.json(response.data.message);
 		})
 		.catch(error => {
