@@ -11,11 +11,18 @@ const auth = require('../middleware/authenticate');
 router.get('/current-all-local',  controller.getLocalcurrentAccounts);
 // Get all current accounts in one call.
 router.get('/current-all', auth.verifyToken,  controller.getLocalcurrentAccounts);
+
 // Individual current account calls.
 router.get('/current-all-wit', auth.verifyToken,  controller.getAllWITcurrentAccounts);
 router.get('/current-all-aib', auth.verifyToken, controller.getAllAIBcurrentAccounts);
 router.get('/current-all-cu', auth.verifyToken, controller.getAllCUcurrentAccounts);
 router.get('/current-all-post', auth.verifyToken, controller.getAllPostCurrentAccounts);
+
+// Individual savings account calls.
+router.get('/saving-all-wit', auth.verifyToken,  controller.getAllWITsavingsAccounts);
+router.get('/saving-all-aib', auth.verifyToken, controller.getAllAIBsavingsAccounts);
+router.get('/saving-all-cu', auth.verifyToken, controller.getAllCUsavingsAccounts);
+router.get('/saving-all-post', auth.verifyToken, controller.getAllPostSavingsAccounts);
 
 // Savings Accounts
 router.get('/savings-all', auth.verifyToken, controller.getAllSavings);

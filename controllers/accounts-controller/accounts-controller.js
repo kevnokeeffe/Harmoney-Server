@@ -238,112 +238,6 @@ router.getAllCUcurrentAccounts = async (req, res) => {
 	});
 };
 
-// Get all current accounts method.
-router.getAllCurrent = async (req, res) => {
-	res.setHeader('Content-Type', 'application/json');
-	let postAccount = null;
-	let POat = null,
-		CUat = null,
-		WITat = null,
-		AIBat = null;
-	let postRefreshToken = null,
-		CUrt = null,
-		WITrt = null,
-		AIBrt = null;
-	let POn = 'Post Office',
-		CUn = 'Credit Union',
-		WITn = 'Bank of WIT',
-		AIBn = 'AIB';
-	FiRecord.findOne({ POn }).then(fi => {
-		let id = fi.id;
-		FiDetails.findOne({ financialInstitutionID: id })
-			.then(resp => {
-				(postRefreshToken = resp.refreshToken), (POat = resp.accessToken);
-			})
-			.then(() => {
-				FiRecord.findOne({ CUn }).then(fi => {
-					let id = fi.id;
-					FiDetails.findOne({ financialInstitutionID: id })
-						.then(resp => {
-							(CUrt = resp.refreshToken), (CUat = resp.accessToken);
-						})
-						.then(() => {
-							FiRecord.findOne({ WITn }).then(fi => {
-								let id = fi.id;
-								FiDetails.findOne({ financialInstitutionID: id })
-									.then(resp => {
-										(WITrt = resp.refreshToken), (WITat = resp.accessToken);
-									})
-									.then(() => {
-										FiRecord.findOne({ AIBn }).then(fi => {
-											let id = fi.id;
-											FiDetails.findOne({ financialInstitutionID: id })
-												.then(resp => {
-													(AIBrt = resp.refreshToken),
-													(AIBat = resp.accessToken);
-												})
-												.then(async () => {
-													const requestCU = axios.get(
-														process.env.CREDIT_UNION_SERVER +
-                              'api/account/find-current-all',
-														{
-															headers: {
-																Authorization: CUrt
-																//authenticate: CUat
-															}
-														}
-													);
-													const requestPost = axios.get(
-														process.env.AN_POST_SERVER +
-                              'api/account/find-current-all',
-														{
-															headers: {
-																Authorization: postRefreshToken
-																//authenticate: POat
-															}
-														}
-													);
-													const requestWIT = axios.get(
-														process.env.WIT_BANK_SERVER +
-                              'api/account/find-current-all',
-														{
-															headers: {
-																Authorization: WITrt
-																//authenticate: WITat
-															}
-														}
-													);
-													const requestAIB = axios.get(
-														process.env.AIB_BANK_SERVER +
-                              'api/account/find-current-all',
-														{
-															headers: {
-																Authorization: AIBrt
-																//authenticate: AIBat,
-															}
-														}
-													);
-													//here
-													await axios.get(requestPost).then(response => {
-														postAccount = response.data.account;
-														const currentAccounts = [
-															//(creditUnion = cuAccount),
-															(AnPost = postAccount)
-															//(BOW = witAccount),
-															//(AIB = aibAccount)
-														];
-														return res.status(200).send({ currentAccounts });
-													});
-												});
-										});
-									});
-							});
-						});
-				});
-			});
-	});
-};
-
 // Method used for testing - get local current accounts
 router.getLocalcurrentAccounts = async (req, res) => {
 	res.setHeader('Content-Type', 'application/json');
@@ -382,21 +276,161 @@ router.getLocalcurrentAccounts = async (req, res) => {
 	});
 };
 
-router.getAllCurrentAccounts = async (req, res) => {
+// SAVINGS ACCOUNT METHODS
+
+// Get all WIT Savings Accounts
+router.getAllWITsavingsAccounts = async (req, res) => {
 	res.setHeader('Content-Type', 'application/json');
-	let name = 'AIB';
-	const carrot = await getOne(name);
-}; // End
-
-
-getOne = async (req,res) =>{
-	await FiRecord.findOne({ fiName: req }).then(fi => {
-		let id = fi.id;
-		return id;
+	let refreshToken = null;
+	let name = 'Bank of WIT';
+	FiRecord.findOne({ fiName: name }).then(user => {
+		let id = user.id;
+		FiDetails.findOne({ financialInstitutionID: id })
+			.then(resp => {
+				if (resp != null){
+					refreshToken = resp.refreshToken;}
+			})
+			.then(async resp => {
+				if (refreshToken!=null){
+					await axios
+						.get(process.env.WIT_BANK_SERVER + '/api/account/find-savings-all', {
+							headers: {
+								Authorization: refreshToken
+							}
+						})
+						.then(response => {
+							account = response.data.account;
+							const savingsAccounts = [
+								(account = account)
+							];
+							return res.status(200).send({ savingsAccounts });
+						})
+						.catch(error => {
+							return res.send({ message: false });
+						});
+				} // end of if statement
+				else {
+					return res.send({message: false});
+				}
+			});
 	});
 };
 
-// Get all savings accounts method.
+// Get all AIB Savings Accounts
+router.getAllAIBsavingsAccounts = async (req, res) => {
+	res.setHeader('Content-Type', 'application/json');
+	let refreshToken = null;
+	let name = 'AIB';
+	FiRecord.findOne({ fiName: name }).then(user => {
+		let id = user.id;
+		FiDetails.findOne({ financialInstitutionID: id })
+			.then(resp => {
+				if (resp != null){
+					refreshToken = resp.refreshToken;}
+			})
+			.then(async resp => {
+				if (refreshToken!=null){
+					await axios
+						.get(process.env.AIB_BANK_SERVER + '/api/account/find-savings-all', {
+							headers: {
+								Authorization: refreshToken
+							}
+						})
+						.then(response => {
+							account = response.data.account;
+							const savingsAccounts = [
+								(account = account)
+							];
+							return res.status(200).send({ savingsAccounts });
+						})
+						.catch(error => {
+							return res.send({ message: false });
+						});
+				} // end of if statement
+				else {
+					return res.send({message: false});
+				}
+			});
+	});
+};
+
+// Get all Credit Union Savings Accounts
+router.getAllCUsavingsAccounts = async (req, res) => {
+	res.setHeader('Content-Type', 'application/json');
+	let refreshToken = null;
+	let name = 'Credit Union';
+	FiRecord.findOne({ fiName: name }).then(user => {
+		let id = user.id;
+		FiDetails.findOne({ financialInstitutionID: id })
+			.then(resp => {
+				if (resp != null){
+					refreshToken = resp.refreshToken;}
+			})
+			.then(async resp => {
+				if (refreshToken!=null){
+					await axios
+						.get(process.env.CREDIT_UNION_SERVER + '/api/account/find-savings-all', {
+							headers: {
+								Authorization: refreshToken
+							}
+						})
+						.then(response => {
+							account = response.data.account;
+							const savingsAccounts = [
+								(account = account)
+							];
+							return res.status(200).send({ savingsAccounts });
+						})
+						.catch(error => {
+							return res.send({ message: false });
+						});
+				} // end of if statement
+				else {
+					return res.send({message: false});
+				}
+			});
+	});
+};
+
+// Get all Post Office Savings Accounts
+router.getAllPostSavingsAccounts = async (req, res) => {
+	res.setHeader('Content-Type', 'application/json');
+	let refreshToken = null;
+	let name = 'Post Office';
+	FiRecord.findOne({ fiName: name }).then(user => {
+		let id = user.id;
+		FiDetails.findOne({ financialInstitutionID: id })
+			.then(resp => {
+				if (resp != null){
+					refreshToken = resp.refreshToken;}
+			})
+			.then(async resp => {
+				if (refreshToken!=null){
+					await axios
+						.get(process.env.AN_POST_SERVER + '/api/account/find-savings-all', {
+							headers: {
+								Authorization: refreshToken
+							}
+						})
+						.then(response => {
+							account = response.data.account;
+							const savingsAccounts = [
+								(account = account)
+							];
+							return res.status(200).send({ savingsAccounts });
+						})
+						.catch(error => {
+							return res.send({ message: false });
+						});
+				} // end of if statement
+				else {
+					return res.send({message: false});
+				}
+			});
+	});
+};
+
+// Old Get all savings accounts method.
 router.getAllSavings = async (req, res) => {
 	res.setHeader('Content-Type', 'application/json');
 	const requestCU = axios.get(
