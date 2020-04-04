@@ -12,6 +12,7 @@ const userRoutes = require('./routes/user-routes');
 // const privateRoutes = require('./routes/private');
 const fiRoutes = require('./routes/financial-institution-routes');
 const accountRoutes = require('./routes/account-routes');
+const transactionRoutes = require('./routes/transaction-routes');
 let app = express();
 app.use(cors());
 // view engine setup
@@ -32,6 +33,7 @@ app.use('/api/auth', userRoutes);
 // app.use('/auth-private', privateRoutes);
 app.use('/api/fi', fiRoutes);
 app.use('/api/account', accountRoutes);
+app.use('/api/transaction', transactionRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

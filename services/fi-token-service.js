@@ -12,6 +12,7 @@ router.saveRefreshToken = async (tokenB, uID) => {
 	const fiID = getFiID(fiToken);
 	const userFiID = getUserFiID(fiToken);
 	const fiEmail = getEmail(fiToken);
+	// const IBAN = getIBAN(fiToken);
 	//Create Bank Account
 	Account.findOne({financialInstitutionID: fiID}, (error, account) => {
 		if (error || !account) {
@@ -147,6 +148,17 @@ getUserFiID = dToken => {
 	}
 	try {
 		return dToken.id;
+	} catch (error) {
+		return null;
+	}
+};
+
+getIBAN = dToken => {
+	if (!dToken) {
+		return null;
+	}
+	try {
+		return dToken.IBAN;
 	} catch (error) {
 		return null;
 	}

@@ -186,7 +186,7 @@ router.getAllPostCurrentAccounts = async (req, res) => {
 							const currentAccounts = [
 								(account = account)
 							];
-							return res.status(200).send({ account });
+							return res.status(200).send({ currentAccounts });
 						})
 						.catch(error => {
 							return res.send({ message: false });
