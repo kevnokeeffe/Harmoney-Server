@@ -11,7 +11,6 @@ router.transactionBreakdown = async (req, res) => {
   let refreshTokenBOW = null
   let refreshTokenCU = null
   let refreshTokenAIB = null
-  let verification = false
 
   await FiRecord.findOne({ fiName: process.env.POST }).then((record) => {
     let idx = record.id
@@ -56,47 +55,6 @@ router.transactionBreakdown = async (req, res) => {
     }
   )
 
-// http://localhost:8001/api/account/update-current-account/5e767023cf75c01c845c1a9e
-// await axios
-//     .get(
-      
-//         'http://localhost:8001/api/account/find-current-individual/' +
-//         id,
-//       {
-//         headers: {
-//           Authorization: refreshTokenBOW,
-//         },
-//       }
-//     )
-//     .then((resp) => {
-//       if (resp.data.message === true) {
-//         axios
-//           .put(
-//             'http://localhost:8001/api/account/update-current-account/' +
-//               id,
-//             req,
-//             { headers: { Authorization: refreshTokenBOW } }
-//           )
-//           .then((reply) => {
-//             if (reply.data.message === true) {
-//               console.log(reply.data.message)
-//               return res.status(200).send({ message: true })
-//             }
-//           })
-//           .catch((error) => {
-//             console.log('local 0.1')
-//             return res.send({ message: false });
-//           })
-//       } else if(resp.data.message === false) {
-//         console.log('local c ' + resp.data.message)
-//       }
-//     })
-//     .catch((error) => {
-//       console.log('local')
-//       return res.send({ message: false });
-//     })
-
-
   // AN POST CALLS
   await axios
     .get(
@@ -115,27 +73,22 @@ router.transactionBreakdown = async (req, res) => {
         axios
           .put(
             process.env.AN_POST_SERVER +
-              '/api/account/update-current-account/' +
+              '/api/account/update-current-account-with/' +
               id,
             data,
             { headers: { Authorization: refreshTokenPost } }
           )
           .then((reply) => {
             if (reply.data.message === true) {
-              console.log(reply.data.message)
               return res.status(200).send({ message: true })
             }
           })
           .catch((error) => {
-            console.log('post 0.1')
             return res.send({ message: false });
           })
-      } else if(resp.data.message === false) {
-        console.log('post c' + resp.data.message)
-      }
+      } else if(resp.data.message === false) {}
     })
     .catch((error) => {
-      console.log('post 1')
       return res.send({ message: false });
     })
 
@@ -156,7 +109,7 @@ router.transactionBreakdown = async (req, res) => {
         axios
           .put(
             process.env.AN_POST_SERVER +
-              '/api/account/update-savings-account/' +
+              '/api/account/update-savings-account-with/' +
               id,
             data,
             { headers: { Authorization: refreshTokenPost } }
@@ -198,7 +151,7 @@ router.transactionBreakdown = async (req, res) => {
       axios
         .put(
           process.env.CREDIT_UNION_SERVER +
-            '/api/account/update-current-account/' +
+            '/api/account/update-current-account-with/' +
             id,
           data,
           { headers: { Authorization: refreshTokenCU } }
@@ -239,7 +192,7 @@ router.transactionBreakdown = async (req, res) => {
       axios
         .put(
           process.env.CREDIT_UNION_SERVER +
-            '/api/account/update-savings-account/' +
+            '/api/account/update-savings-account-with/' +
             id,
           data,
           { headers: { Authorization: refreshTokenCU } }
@@ -283,7 +236,7 @@ router.transactionBreakdown = async (req, res) => {
       axios
         .put(
           process.env.AIB_BANK_SERVER +
-            '/api/account/update-current-account/' +
+            '/api/account/update-current-account-with/' +
             id,
           data,
           { headers: { Authorization: refreshTokenAIB } }
@@ -323,7 +276,7 @@ router.transactionBreakdown = async (req, res) => {
         axios
           .put(
             process.env.AIB_BANK_SERVER +
-              '/api/account/update-savings-account/' +
+              '/api/account/update-savings-account-with/' +
               id,
             data,
             { headers: { Authorization: refreshTokenAIB } }
@@ -365,7 +318,7 @@ router.transactionBreakdown = async (req, res) => {
         axios
           .put(
             process.env.WIT_BANK_SERVER +
-              '/api/account/update-current-account/' +
+              '/api/account/update-current-account-with/' +
               id,
               data,
             { headers: { Authorization: refreshTokenBOW } }
@@ -404,7 +357,7 @@ router.transactionBreakdown = async (req, res) => {
         axios
           .put(
             process.env.WIT_BANK_SERVER +
-              '/api/account/update-savings-account/' +
+              '/api/account/update-savings-account-with/' +
               id,
             data,
             { headers: { Authorization: refreshTokenBOW } }
@@ -426,86 +379,7 @@ router.transactionBreakdown = async (req, res) => {
       return res.send({ message: false });
     })
 
-// Local Bank Call
-// await axios
-//     .get(
-//       process.env.BANK_SERVER +
-//         '/api/account/find-current-individual/' +
-//         id,
-//       {
-//         headers: {
-//           Authorization: refreshTokenBOW,
-//         },
-//       }
-//     )
-//     .then((resp) => {
-//       if (resp.data.message === true) {
-//         axios
-//           .put(
-//             process.env.BANK_SERVER +
-//               '/api/account/update-current-account/' +
-//               id,
-//             req,
-//             { headers: { Authorization: refreshTokenBOW } }
-//           )
-//           .then((reply) => {
-//             if (reply.data.message === true) {
-//               console.log(reply.data.message)
-//               return res.status(200).send({ message: true })
-//             }
-//           })
-//           .catch((error) => {
-//             console.log('local 0.1')
-//             return res.send({ message: false });
-//           })
-//       } else if(resp.data.message === false) {
-//         console.log('local c ' + resp.data.message)
-//       }
-//     })
-//     .catch((error) => {
-//       console.log('local')
-//       return res.send({ message: false });
-//     })
 
-//     await axios
-//     .get(
-//       process.env.BANK_SERVER +
-//         '/api/account/find-savings-individual/' +
-//         id,
-//       {
-//         headers: {
-//           Authorization: refreshTokenBOW,
-//         },
-//       }
-//     )
-//     .then((resp) => {
-//       if (resp.data.message === true) {
-//         axios
-//           .put(
-//             process.env.BANK_SERVER +
-//               '/api/account/update-savings-account/' +
-//               id,
-//             req,
-//             { headers: { Authorization: refreshTokenBOW } }
-//           )
-//           .then((reply) => {
-//             if (reply.data.message === true) {
-//               console.log(reply.data.message)
-//               return res.status(200).send({ message: true })
-//             }
-//           })
-//           .catch((error) => {
-//             console.log('local 0.1')
-//             return res.send({ message: false });
-//           })
-//       } else if(resp.data.message === false) {
-//         console.log('local s ' + resp.data.message)
-//       }
-//     })
-//     .catch((error) => {
-//       console.log('local')
-//       return res.send({ message: false });
-//     })
 
   }
 
