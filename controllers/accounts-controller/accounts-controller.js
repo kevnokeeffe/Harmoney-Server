@@ -110,7 +110,10 @@ router.getAllWITcurrentAccounts = async (req, res) => {
 							const currentAccounts = [
 								(account = account)
 							];
-							return res.status(200).send({ currentAccounts });
+							if(account!=undefined){
+								return res.status(200).send({ currentAccounts,message:true });
+								}
+								else{res.send({message:false})}
 						})
 						.catch(error => {
 							return res.send({ message: false });
@@ -148,7 +151,10 @@ router.getAllAIBcurrentAccounts = async (req, res) => {
 							const currentAccounts = [
 								(account = account)
 							];
-							return res.status(200).send({ currentAccounts });
+							if(account!=undefined){
+								return res.status(200).send({ currentAccounts,message:true });
+								}
+								else{res.send({message:false})}
 						})
 						.catch(error => {
 							return res.send({ message: false });
@@ -186,7 +192,10 @@ router.getAllPostCurrentAccounts = async (req, res) => {
 							const currentAccounts = [
 								(account = account)
 							];
-							return res.status(200).send({ currentAccounts });
+							if(account!=undefined){
+							return res.status(200).send({ currentAccounts,message:true });
+							}
+							else{res.send({message:false})}
 						})
 						.catch(error => {
 							return res.send({ message: false });
@@ -224,8 +233,10 @@ router.getAllCUcurrentAccounts = async (req, res) => {
 							const currentAccounts = [
 								(account = account)
 							];
-
-							return res.status(200).send({ currentAccounts });
+							if(account!=undefined){
+								return res.status(200).send({ currentAccounts,message:true });
+								}
+								else{res.send({message:false})}
 						})
 						.catch(error => {
 							return res.send({ message: false });
@@ -263,7 +274,10 @@ router.getLocalcurrentAccounts = async (req, res) => {
 							const currentAccounts = [
 								(account = account)
 							];
-							return res.status(200).send({ currentAccounts });
+							if(account!=undefined){
+								return res.status(200).send({ currentAccounts,message:true });
+								}
+								else{res.send({message:false})}
 						})
 						.catch(error => {
 							return res.send({ message: false });
@@ -303,7 +317,10 @@ router.getAllWITsavingsAccounts = async (req, res) => {
 							const savingsAccounts = [
 								(account = account)
 							];
-							return res.status(200).send({ savingsAccounts });
+							if(account!=undefined){
+								return res.status(200).send({ savingsAccounts,message:true });
+								}
+								else{res.send({message:false})}
 						})
 						.catch(error => {
 							return res.send({ message: false });
@@ -341,7 +358,10 @@ router.getAllAIBsavingsAccounts = async (req, res) => {
 							const savingsAccounts = [
 								(account = account)
 							];
-							return res.status(200).send({ savingsAccounts });
+							if(account!=undefined){
+								return res.status(200).send({ savingsAccounts,message:true });
+								}
+								else{res.send({message:false})}
 						})
 						.catch(error => {
 							return res.send({ message: false });
@@ -379,7 +399,10 @@ router.getAllCUsavingsAccounts = async (req, res) => {
 							const savingsAccounts = [
 								(account = account)
 							];
-							return res.status(200).send({ savingsAccounts });
+							if(account!=undefined){
+								return res.status(200).send({ savingsAccounts,message:true });
+								}
+								else{res.send({message:false})}
 						})
 						.catch(error => {
 							return res.send({ message: false });
@@ -417,7 +440,10 @@ router.getAllPostSavingsAccounts = async (req, res) => {
 							const savingsAccounts = [
 								(account = account)
 							];
-							return res.status(200).send({ savingsAccounts });
+							if(account!=undefined){
+								return res.status(200).send({ savingsAccounts,message:true });
+								}
+								else{res.send({message:false})}
 						})
 						.catch(error => {
 							return res.send({ message: false });
