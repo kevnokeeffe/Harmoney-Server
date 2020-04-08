@@ -71,7 +71,7 @@ router.transactionBreakdown = async (req, res) => {
       if (resp.data.message === true) {
         let data = req.body.transaction
         axios
-          .put(
+          .post(
             process.env.AN_POST_SERVER +
               '/api/account/update-current-account-with/' +
               id,
@@ -107,7 +107,7 @@ router.transactionBreakdown = async (req, res) => {
       if (resp.data.message === true) {
         let data = req.body.transaction
         axios
-          .put(
+          .post(
             process.env.AN_POST_SERVER +
               '/api/account/update-savings-account-with/' +
               id,
@@ -116,20 +116,15 @@ router.transactionBreakdown = async (req, res) => {
           )
           .then((reply) => {
             if (reply.data.message === true) {
-              console.log(reply.data.message)
               return res.status(200).send({ message: true })
             }
           })
           .catch((error) => {
-            console.log('post 0.2')
             return res.send({ message: false });
           })
-      } else {
-        console.log('post s' + resp.data.message)
-      }
+      } else {}
     })
     .catch((error) => {
-      console.log('post 2')
       return res.send({ message: false });
     })
 
@@ -149,7 +144,7 @@ router.transactionBreakdown = async (req, res) => {
     if (resp.data.message === true) {
       let data = req.body.transaction
       axios
-        .put(
+        .post(
           process.env.CREDIT_UNION_SERVER +
             '/api/account/update-current-account-with/' +
             id,
@@ -158,20 +153,15 @@ router.transactionBreakdown = async (req, res) => {
         )
         .then((reply) => {
           if (reply.data.message === true) {
-            console.log(reply.data.message)
             return res.status(200).send({ message: true })
           }
         })
         .catch((error) => {
-          console.log('cu 0.1')
           return res.send({ message: false });
         })
-    } else {
-      console.log('cu c ' + resp.data.message)
-    }
+    } else {}
   })
   .catch((error) => {
-    console.log('cu 1')
     return res.send({ message: false });
   })
 
@@ -190,7 +180,7 @@ router.transactionBreakdown = async (req, res) => {
     if (resp.data.message === true) {
       let data = req.body.transaction
       axios
-        .put(
+        .post(
           process.env.CREDIT_UNION_SERVER +
             '/api/account/update-savings-account-with/' +
             id,
@@ -199,20 +189,15 @@ router.transactionBreakdown = async (req, res) => {
         )
         .then((reply) => {
           if (reply.data.message === true) {
-            console.log(reply.data.message)
             return res.status(200).send({ message: true })
           }
         })
         .catch((error) => {
-          console.log('cu s ')
           return res.send({ message: false });
         })
-    } else {
-      console.log('cu s ' + resp.data.message)
-    }
+    } else {}
   })
   .catch((error) => {
-    console.log('cu s ')
     return res.send({ message: false });
   })
 
@@ -229,12 +214,11 @@ router.transactionBreakdown = async (req, res) => {
       },
     }
   )
-  .then((resp) => {
+  .then(async (resp) => {
     if (resp.data.message === true) {
-      console.log(req.body)
       let data = req.body.transaction
-      axios
-        .put(
+      await axios
+        .post(
           process.env.AIB_BANK_SERVER +
             '/api/account/update-current-account-with/' +
             id,
@@ -243,16 +227,13 @@ router.transactionBreakdown = async (req, res) => {
         )
         .then((reply) => {
           if (reply.data.message === true) {
-            console.log(reply.data.message)
             return res.status(200).send({ message: true })
           }
         })
         .catch((error) => {
           return res.send({ message: false });
         })
-    } else {
-      console.log('aib c ' + resp.data.message)
-    }
+    } else {}
   })
   .catch((error) => {
     return res.send({ message: false });
@@ -272,9 +253,8 @@ router.transactionBreakdown = async (req, res) => {
     .then((resp) => {
       if (resp.data.message === true) {
         let data = req.body.transaction
-        console.log(req.body)
         axios
-          .put(
+          .post(
             process.env.AIB_BANK_SERVER +
               '/api/account/update-savings-account-with/' +
               id,
@@ -283,16 +263,13 @@ router.transactionBreakdown = async (req, res) => {
           )
           .then((reply) => {
             if (reply.data.message === true) {
-              console.log(reply.data.message)
               return res.status(200).send({ message: true })
             }
           })
           .catch((error) => {
             return res.send({ message: false });
           })
-      } else {
-        console.log('AIB s ' + resp.data.message)
-      }
+      } else {}
     })
     .catch((error) => {
       return res.send({ message: false });
@@ -313,10 +290,9 @@ router.transactionBreakdown = async (req, res) => {
     )
     .then((resp) => {
       if (resp.data.message === true) {
-        console.log(req.body.transaction)
         let data = req.body.transaction
         axios
-          .put(
+          .post(
             process.env.WIT_BANK_SERVER +
               '/api/account/update-current-account-with/' +
               id,
@@ -325,16 +301,13 @@ router.transactionBreakdown = async (req, res) => {
           )
           .then((reply) => {
             if (reply.data.message === true) {
-              console.log(reply.data.message)
               return res.status(200).send({ message: true })
             }
           })
           .catch((error) => {
             return res.send({ message: false });
           })
-      } else {
-        console.log('WIT c ' + resp.data.message)
-      }
+      } else {}
     })
     .catch((error) => {
       return res.send({ message: false });
@@ -355,7 +328,7 @@ router.transactionBreakdown = async (req, res) => {
       if (resp.data.message === true) {
         let data = req.body.transaction
         axios
-          .put(
+          .post(
             process.env.WIT_BANK_SERVER +
               '/api/account/update-savings-account-with/' +
               id,
@@ -364,16 +337,13 @@ router.transactionBreakdown = async (req, res) => {
           )
           .then((reply) => {
             if (reply.data.message === true) {
-              console.log(reply.data.message)
               return res.status(200).send({ message: true })
             }
           })
           .catch((error) => {
             return res.send({ message: false });
           })
-      } else {
-        console.log('WIT s ' + resp.data.message)
-      }
+      } else {}
     })
     .catch((error) => {
       return res.send({ message: false });
