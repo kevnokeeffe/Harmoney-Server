@@ -3,11 +3,6 @@ const router = express.Router();
 require('dotenv').config();
 const authyUserController = require('../controllers/user-controllers/user-authy-controller');
 
-// Register Route
-//router.post('/register', userController.register)
-// Login Route
-//router.post('/login', userController.login)
-
 // Authy Register Route 
 router.post('/authy-register', authyUserController.registerAuthy);
 // Authy send validation message to mobile route
@@ -24,4 +19,5 @@ router.post('/authy-logout', authyUserController.authyLogout);
 router.post('/authy-check-signup-email', authyUserController.authyUserCheckSignUpEmail);
 
 router.post('/authy-user-email', authyUserController.authyUserEmail);
+
 module.exports = router;

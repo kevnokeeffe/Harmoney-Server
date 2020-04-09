@@ -160,7 +160,7 @@ router.authyUserEmail = (req,res) => {
 };
 
 // Method to send random code via text message for login validation
-router.validateLogin = (phone) => {
+function validateLogin (phone){
 	let accountSid = process.env.TWILIO_ACCOUNT_SID_LOGIN; // The Account SID from Twilio
 	let authToken = process.env.TWILIO_AUTH_TOKEN_LOGIN; // The Auth Token from Twilio
 	let client = new twilio(accountSid, authToken);
