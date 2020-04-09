@@ -35,7 +35,7 @@ router.saveRefreshToken = async (tokenB, uID) => {
 	});
 };
 
-createAccount = (tokenB, fiID, userFiID, fiEmail ,uID) => {
+function createAccount (tokenB, fiID, userFiID, fiEmail ,uID) {
 	const account = new Account({
 		userID: uID,
 		email: null,
@@ -113,14 +113,14 @@ router.getAccessToken = () => {
   
 };
 
-decodeToken = token => {
+function decodeToken (token) {
 	if (!token) {
 		return null;
 	}
 	return jwt.decode(token);
 };
 
-getFiID = dToken => {
+function getFiID (dToken) {
 	if (!dToken) {
 		return null;
 	}
@@ -131,7 +131,7 @@ getFiID = dToken => {
 	}
 };
 
-getEmail = dToken => {
+function getEmail (dToken) {
 	if (!dToken) {
 		return null;
 	}
@@ -142,7 +142,7 @@ getEmail = dToken => {
 	}
 };
 
-getUserFiID = dToken => {
+function getUserFiID (dToken) {
 	if (!dToken) {
 		return null;
 	}
@@ -153,7 +153,7 @@ getUserFiID = dToken => {
 	}
 };
 
-getIBAN = dToken => {
+function getIBAN (dToken) {
 	if (!dToken) {
 		return null;
 	}

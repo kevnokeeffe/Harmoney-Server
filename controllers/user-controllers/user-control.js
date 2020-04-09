@@ -39,26 +39,6 @@ router.register = (req, res) => {
 		});
 };
 
-// router.createAccount = user => {
-// 	this.captureDetailsReg(user);
-// 	const userEmail = user.email;
-// 	const id = user._id;
-// 	const account = new Account({
-// 		userID: id,
-// 		email: userEmail,
-// 		bank: [
-// 			{
-// 				financialInstitutionID: null, //fk
-// 				refreshToken: null,
-// 				accessToken: null,
-// 				IBAN: null,
-// 				userFiID: null,
-// 				bankEmail: null
-// 			}
-// 		]
-// 	});
-// 	account.save();
-// };
 
 // Login Method
 router.login = (req, res) => {

@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs');
 let auth = require('../../services/auth-service');
 let code = '';
 let code2 = '';
-let message = '';
+
 // Login Method
 router.authyLogin = (req, res) => {
 	res.setHeader('Content-Type', 'application/json');
@@ -75,7 +75,7 @@ router.registerAuthy = (req, res) => {
 };
 
 // Method to generate a random code for Sign-up
-randomCodeSignUp = () => {
+function randomCodeSignUp () {
 	let chars = 'acdefhikmnoqrstuvwxyz0123456789ABCDEFGHJKLMNPQRSTUVWXYZ'.split(
 		''
 	);
@@ -160,7 +160,7 @@ router.authyUserEmail = (req,res) => {
 };
 
 // Method to send random code via text message for login validation
-validateLogin = (phone) => {
+router.validateLogin = (phone) => {
 	let accountSid = process.env.TWILIO_ACCOUNT_SID_LOGIN; // The Account SID from Twilio
 	let authToken = process.env.TWILIO_AUTH_TOKEN_LOGIN; // The Auth Token from Twilio
 	let client = new twilio(accountSid, authToken);
@@ -188,7 +188,7 @@ router.validateCodeLogin = (req, res) => {
 	}
 };
 
-randomCodeLogin = () => {
+ function randomCodeLogin () {
 	let chars = '0123456789'.split(
 		''
 	);
