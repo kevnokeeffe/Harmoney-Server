@@ -94,11 +94,12 @@ router.getAllWITcurrentAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp != null){
-					refreshToken = resp.refreshToken;}
+				if (resp !== null){
+					refreshToken = resp.refreshToken;
+					}
 			})
-			.then(async resp => {
-				if (refreshToken!=null){
+			.then(async () => {
+				if (refreshToken!==null){
 					await axios
 						.get(process.env.WIT_BANK_SERVER + '/api/account/find-current-all', {
 							headers: {
@@ -106,14 +107,15 @@ router.getAllWITcurrentAccounts = async (req, res) => {
 							}
 						})
 						.then(response => {
-							account = response.data.account;
+							let account = response.data.account;
 							const currentAccounts = [
 								(account = account)
-							];
-							if(account!=undefined){
+							]
+							if(account!==undefined){
+								console.log(currentAccounts)
 								return res.status(200).send({ currentAccounts,message:true });
 								}
-								else{res.send({message:false})}
+								if(!account){res.send({message:false})}
 						})
 						.catch(error => {
 							return res.send({ message: false });
@@ -135,11 +137,11 @@ router.getAllAIBcurrentAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp != null){
+				if (resp !== null){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async resp => {
-				if (refreshToken!=null){
+				if (refreshToken!==null){
 					await axios
 						.get(process.env.AIB_BANK_SERVER + '/api/account/find-current-all', {
 							headers: {
@@ -147,11 +149,11 @@ router.getAllAIBcurrentAccounts = async (req, res) => {
 							}
 						})
 						.then(response => {
-							account = response.data.account;
+							let account = response.data.account;
 							const currentAccounts = [
 								(account = account)
 							];
-							if(account!=undefined){
+							if(account!==undefined){
 								return res.status(200).send({ currentAccounts,message:true });
 								}
 								else{res.send({message:false})}
@@ -176,11 +178,11 @@ router.getAllPostCurrentAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp != null){
+				if (resp !== null){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async () => {
-				if (refreshToken!=null){
+				if (refreshToken!==null){
 					await axios
 						.get(process.env.AN_POST_SERVER + '/api/account/find-current-all', {
 							headers: {
@@ -192,7 +194,7 @@ router.getAllPostCurrentAccounts = async (req, res) => {
 							const currentAccounts = [
 								(account = account)
 							];
-							if(account!=undefined){
+							if(account!==undefined){
 							return res.status(200).send({ currentAccounts,message:true });
 							}
 							else{res.send({message:false})}
@@ -217,11 +219,11 @@ router.getAllCUcurrentAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp != null){
+				if (resp !== null){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async resp => {
-				if (refreshToken!=null){
+				if (refreshToken!==null){
 					await axios
 						.get(process.env.CREDIT_UNION_SERVER + '/api/account/find-current-all', {
 							headers: {
@@ -229,11 +231,12 @@ router.getAllCUcurrentAccounts = async (req, res) => {
 							}
 						})
 						.then(response => {
-							account = response.data.account;
+							let account = response.data.account;
 							const currentAccounts = [
 								(account = account)
 							];
-							if(account!=undefined){
+							if(account!==undefined){
+								console.log(currentAccounts)
 								return res.status(200).send({ currentAccounts,message:true });
 								}
 								else{res.send({message:false})}
@@ -258,11 +261,11 @@ router.getLocalcurrentAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp != null){
+				if (resp !== null){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async resp => {
-				if (refreshToken!=null){
+				if (refreshToken!==null){
 					await axios
 						.get(process.env.AIB_BANK_SERVER + '/api/account/find-current-all', {
 							headers: {
@@ -270,11 +273,12 @@ router.getLocalcurrentAccounts = async (req, res) => {
 							}
 						})
 						.then(response => {
-							account = response.data.account;
+							let account = response.data.account;
 							const currentAccounts = [
 								(account = account)
 							];
-							if(account!=undefined){
+							if(account!==undefined){
+								console.log(currentAccounts)
 								return res.status(200).send({ currentAccounts,message:true });
 								}
 								else{res.send({message:false})}
@@ -301,7 +305,7 @@ router.getAllWITsavingsAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp != null){
+				if (resp !== null){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async resp => {
@@ -313,11 +317,12 @@ router.getAllWITsavingsAccounts = async (req, res) => {
 							}
 						})
 						.then(response => {
-							account = response.data.account;
+							let account = response.data.account;
 							const savingsAccounts = [
 								(account = account)
 							];
-							if(account!=undefined){
+							if(account!==undefined){
+								console.log(savingsAccounts)
 								return res.status(200).send({ savingsAccounts,message:true });
 								}
 								else{res.send({message:false})}
@@ -342,11 +347,11 @@ router.getAllAIBsavingsAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp != null){
+				if (resp !== null){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async resp => {
-				if (refreshToken!=null){
+				if (refreshToken!==null){
 					await axios
 						.get(process.env.AIB_BANK_SERVER + '/api/account/find-savings-all', {
 							headers: {
@@ -354,11 +359,11 @@ router.getAllAIBsavingsAccounts = async (req, res) => {
 							}
 						})
 						.then(response => {
-							account = response.data.account;
+							let account = response.data.account;
 							const savingsAccounts = [
 								(account = account)
 							];
-							if(account!=undefined){
+							if(account!==undefined){
 								return res.status(200).send({ savingsAccounts,message:true });
 								}
 								else{res.send({message:false})}
@@ -383,11 +388,11 @@ router.getAllCUsavingsAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp != null){
+				if (resp !== null){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async resp => {
-				if (refreshToken!=null){
+				if (refreshToken!==null){
 					await axios
 						.get(process.env.CREDIT_UNION_SERVER + '/api/account/find-savings-all', {
 							headers: {
@@ -395,11 +400,11 @@ router.getAllCUsavingsAccounts = async (req, res) => {
 							}
 						})
 						.then(response => {
-							account = response.data.account;
+							let account = response.data.account;
 							const savingsAccounts = [
 								(account = account)
 							];
-							if(account!=undefined){
+							if(account!==undefined){
 								return res.status(200).send({ savingsAccounts,message:true });
 								}
 								else{res.send({message:false})}
@@ -424,11 +429,11 @@ router.getAllPostSavingsAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp != null){
+				if (resp !== null){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async resp => {
-				if (refreshToken!=null){
+				if (refreshToken!==null){
 					await axios
 						.get(process.env.AN_POST_SERVER + '/api/account/find-savings-all', {
 							headers: {
@@ -436,11 +441,11 @@ router.getAllPostSavingsAccounts = async (req, res) => {
 							}
 						})
 						.then(response => {
-							account = response.data.account;
+							let account = response.data.account;
 							const savingsAccounts = [
 								(account = account)
 							];
-							if(account!=undefined){
+							if(account!==undefined){
 								return res.status(200).send({ savingsAccounts,message:true });
 								}
 								else{res.send({message:false})}
