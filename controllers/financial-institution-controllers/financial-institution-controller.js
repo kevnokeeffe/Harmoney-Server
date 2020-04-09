@@ -20,7 +20,7 @@ router.loginAccess = async (req,res) => {
 			return res.status(200).send({message});
 		})
 		.catch(error => {
-			console.log(error);
+			return error
 		});
 };
 
@@ -231,7 +231,7 @@ router.loginAccessWIT = async (req,res) => {
 			return res.status(200).send({message});
 		})
 		.catch(error => {
-			console.log(error);
+			return error
 		});
 };
 
@@ -247,7 +247,7 @@ router.loginAccessAIB = async (req,res) => {
 			return res.status(200).send({message});
 		})
 		.catch(error => {
-			console.log(error);
+			return error
 		});
 };
 
@@ -263,7 +263,7 @@ router.loginAccessPost = async (req,res) => {
 			return res.status(200).send({message});
 		})
 		.catch(error => {
-			console.log(error);
+			return error
 		});
 };
 
@@ -279,7 +279,7 @@ router.loginAccessCU = async (req,res) => {
 			return res.status(200).send({message});
 		})
 		.catch(error => {
-			console.log(error);
+			return error
 		});
 };
 

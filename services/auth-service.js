@@ -68,7 +68,7 @@ router.helloBank = async (req,res) => {
 			return res.json(response.data.message);
 		})
 		.catch(error => {
-			console.log(error);
+			return error
 		});
 };
 

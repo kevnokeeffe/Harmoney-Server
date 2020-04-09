@@ -75,10 +75,9 @@ router.login = (req, res) => {
 router.logout = function(req, res) {
 	req.session.destroy(function(err) {
 		if (err) {
-			console.log('Error Logging Out: ', err);
 			return next(err);
 		}
-		res.status(200).send();
+		res.status(200).send({message:true});
 	});
 };
 

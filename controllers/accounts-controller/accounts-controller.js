@@ -112,7 +112,6 @@ router.getAllWITcurrentAccounts = async (req, res) => {
 								(account = account)
 							]
 							if(account!==undefined){
-								console.log(currentAccounts)
 								return res.status(200).send({ currentAccounts,message:true });
 								}
 								if(!account){res.send({message:false})}
@@ -236,7 +235,6 @@ router.getAllCUcurrentAccounts = async (req, res) => {
 								(account = account)
 							];
 							if(account!==undefined){
-								console.log(currentAccounts)
 								return res.status(200).send({ currentAccounts,message:true });
 								}
 								else{res.send({message:false})}
@@ -278,7 +276,6 @@ router.getLocalcurrentAccounts = async (req, res) => {
 								(account = account)
 							];
 							if(account!==undefined){
-								console.log(currentAccounts)
 								return res.status(200).send({ currentAccounts,message:true });
 								}
 								else{res.send({message:false})}
@@ -322,7 +319,6 @@ router.getAllWITsavingsAccounts = async (req, res) => {
 								(account = account)
 							];
 							if(account!==undefined){
-								console.log(savingsAccounts)
 								return res.status(200).send({ savingsAccounts,message:true });
 								}
 								else{res.send({message:false})}
