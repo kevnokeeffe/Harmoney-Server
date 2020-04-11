@@ -12,6 +12,8 @@ router.post('/authy-login', authyUserController.authyLogin);
 // Authy validate code route
 router.post('/authy-validate-code-signup', authyUserController.validateCode);
 
+router.get('/check-user-email', authyUserController.checkEmailExists)
+
 router.post('/authy-validate-code-login', authyUserController.validateCodeLogin);
 // Authy logout route
 router.post('/authy-logout', authyUserController.authyLogout);

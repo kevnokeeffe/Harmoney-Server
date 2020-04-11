@@ -22,7 +22,7 @@ router.authyLogin = (req, res) => {
 				.compare(req.body.password, user.password)
 				.then(match => {
 					if (!match) {
-						return res.status(401).send({ auth: false, token: null });
+						return res.status(401).send({ auth: false, token: null, message:"password"});
 					}
 					const token = auth.generateJWT(user);
 					return res
@@ -41,6 +41,14 @@ router.authyLogin = (req, res) => {
 		});
 };
 
+router.checkEmailExists = () => {
+	User.find({ email: req.body.email })
+		.exec()
+		.then(user => {
+			if (user.length >= 1) {
+				return res.send({ message: false });
+			} else {return res.send({ message: true });}})
+}
 // Register Method
 router.registerAuthy = (req, res) => {
 	res.setHeader('Content-Type', 'application/json');
