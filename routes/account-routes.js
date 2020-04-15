@@ -17,4 +17,6 @@ router.get('/saving-all-aib', auth.verifyToken, controller.getAllAIBsavingsAccou
 router.get('/saving-all-cu', auth.verifyToken, controller.getAllCUsavingsAccounts);
 router.get('/saving-all-post', auth.verifyToken, controller.getAllPostSavingsAccounts);
 
+//DELETE ACCOUNT DATA
+router.delete('/delete/fi-details/:id', auth.verifyToken, controller.deleteFiDetails);
 module.exports = router;

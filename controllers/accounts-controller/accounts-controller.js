@@ -6,7 +6,7 @@ let router = express.Router();
 const axios = require('axios');
 const FiRecord = require('../../models/financial-institution/financial-institution-details');
 const FiDetails = require('../../models/financial-institution/account');
-
+const UserModel = require('../../models/users-models/user');
 // CURRENT ACCOUNT GET METHODS
 
 // Get all WIT Current Accounts - Working
@@ -337,6 +337,15 @@ router.getAllPostSavingsAccounts = async (req, res) => {
 					return res.send({message: false});
 				}
 			});
+	});
+};
+
+router.deleteFiDetails = (req, res) => {
+	res.setHeader('Content-Type', 'application/json');
+	FiDetails.deleteMany({ 'userID': req.params.id }).exec().then(promis => {
+		res.status(200).json({ message: true, promis: promis });
+	}).catch(err => {
+		res.status(500).json({ message: false, error: err });
 	});
 };
 
