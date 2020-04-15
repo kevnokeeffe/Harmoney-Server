@@ -5,13 +5,14 @@ const auth = require('../middleware/authenticate');
 
 router.post('/execute-internal', auth, controller.transactionBreakdown);
 
-router.post('/execute-external', auth, (req, res) => {
+router.post('/execute-external', (req, res) => {
+	let info = req.body
 	let obj = {
 		message: true,
-		secret: 'You may pass',
-		_id: req._id
+		secret: 'Testing',
+		auth:true,
+		data: info
 	};
-
 	res.status(200).send(obj);
 });
 

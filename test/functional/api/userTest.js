@@ -13,12 +13,13 @@ const newUser = {
     lName: "O'Keeffe",
     email: `${email}@gmail.com`,
     phone: "+353 85 206 9520",
-    password: "123456"
-    
+    password: "123456" 
 };
 
-describe('Connect to the database',  async () => {
+describe('Database Connection Test',  async () => {
+
     it('should connect to the database',  () => {
+
     before(async (done) => {
         try {
             await mongoose.connect(`mongodb+srv://${process.env.HARMONEY_ATLAS_NAME}:${process.env.HARMONEY_ATLAS_PASSWORD}@cluster0-r3fv1.mongodb.net/test?retryWrites=true&w=majority`, {
@@ -31,7 +32,9 @@ describe('Connect to the database',  async () => {
         }
     });
 });
+
 it('should not connect to the database',  () => {
+
     before(async (done) => {
         try {
             await mongoose.connect(`mongodb+srv://${process.env.HARMONEY_ATLAS}:${process.env.HARMONEY_ATLAS}@cluster0-r3fv1.mongodb.net/forTesting?retryWrites=true&w=majority`, {
@@ -43,10 +46,13 @@ it('should not connect to the database',  () => {
             console.log(error);
         }
     });
-});
+
 });
 
-describe('Testing user-auth methods',  async () => {
+});
+
+describe('Testing User-Authy Methods',  async () => {
+
 it("should create user", async () => {
     return request(server)
         .post(apiBase + '/authy-register')
@@ -73,9 +79,10 @@ it("should try create an existing user with registered email and fail", () => {
         });
 });
 
-it("should try create a user and fail", () => {
+it("should try create a user with invalid values and fail", () => {
     const user = {
-        faName: "",
+        fakeName: "Name",
+        cake:null
     };
     request(server)
         .post(apiBase + '/authy-register')
@@ -87,7 +94,7 @@ it("should try create a user and fail", () => {
         });
 });
 
-it("should login", () => {
+it("should login successfully", () => {
     request(server)
         .post(apiBase + "/authy-login")
         .send({"email": newUser.email, "password": newUser.password})
@@ -95,7 +102,22 @@ it("should login", () => {
         .then(res => {
             expect(res).to.exist;
             expect(res.body.token).to.not.be.empty;
+            expect(res.body.message).equals('Login Successful');
+            expect(res.body.auth).equals(true);
         });
+});
+
+it("should try login with the right user but wrong password", () => {
+    request(server)
+        .post(apiBase + '/authy-login')
+        .send({"email": newUser.email, "password": "random"})
+        .expect(401)
+        .then(res =>{
+            expect(res).to.exist;
+            expect(res.body.message).equals("password");
+            expect(res.body.auth).equals(false);
+        })
+
 });
 
 it("should delete a user", () => {

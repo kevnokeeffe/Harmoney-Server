@@ -1,5 +1,9 @@
 file:
+    - ./test/functional/api/accountTesting.js
     - ./test/functional/api/userTest.js
+    - ./test/functional/api/transactionTest.js
+    - ./test/functional/api/financialInstutionTesting.js
+    - ./test/functional/api/dummy-test.js
 require: '@babel/register'
 exit: true
 timeout: 22000
