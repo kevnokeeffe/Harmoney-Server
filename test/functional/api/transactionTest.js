@@ -3,15 +3,19 @@ const server = require("../../../bin/www");
 const expect = chai.expect;
 const request = require("supertest");
 const _ = require("lodash");
-const apiBase = "/api/transaction"
-
-let data = ["BOW123456","ajf34toifioJJlkl232A",30]
+const apiTransBase = "/api/transaction"
+const apiBase = "/api/auth"
+let token, validId
+let transaction = ["BOW123456","ajf34toifioJJlkl232A",30]
+const User = require("../../../models/users-models/user");
+const email = Math.floor((Math.random() * 10000000) + 10000000);
 
 describe('Transaction Test',  async () => {
+
     it("should initiate a transaction", async () => {
         return request(server)
-            .post(apiBase + '/execute-external')
-            .send(data)
+            .post(apiTransBase + '/execute-external')
+            .send(transaction)
             .expect(200)
             .then(async (res) => {
                 expect(res).to.exist;
