@@ -41,14 +41,6 @@ router.authyLogin = (req, res) => {
 		});
 };
 
-router.checkEmailExists = () => {
-	User.find({ email: req.body.email })
-		.exec()
-		.then(user => {
-			if (user.length >= 1) {
-				return res.send({ message: false });
-			} else {return res.send({ message: true });}})
-}
 // Register Method
 router.registerAuthy = (req, res) => {
 	res.setHeader('Content-Type', 'application/json');
@@ -104,7 +96,6 @@ router.authyUserCheckSignUpEmail = (req,res) => {
 		.then(user => {
 			if (!user) {
 				return res.send({message: true});
-        
 			}
 			return res.send({message: false});
 		}).catch(err => {
@@ -142,16 +133,6 @@ router.validateCode = (req, res) => {
 	} else {
 		return res.send({ message: false });
 	}
-};
-
-// Logout method
-router.authyLogout = function (req, res) {
-	req.session.destroy(function (err) {
-		if (err) {
-			return res.status(400).send({message: false});
-		}
-		res.status(200).send({message: true});
-	});
 };
 
 router.deleteUser = (req, res) => {

@@ -59,17 +59,4 @@ router.getUserID = (req) => {
 	return token.user.id;
 };
 
-// Server to server connection test
-router.helloBank = async (req,res) => {
-	res.setHeader('Content-Type', 'application/json');
-	await axios
-		.get(process.env.WIT_BANK_SERVER + '/api/test/bank')
-		.then(response => {
-			return res.json(response.data.message);
-		})
-		.catch(error => {
-			return error
-		});
-};
-
 module.exports = router;

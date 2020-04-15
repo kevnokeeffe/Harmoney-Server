@@ -4,6 +4,10 @@ const axios = require('axios')
 const FiRecord = require('../../models/financial-institution/financial-institution-details')
 const FiDetails = require('../../models/financial-institution/account')
 
+// This method does all the transcation heavy work. 
+// Finds the financial instutition the transaction is associated with, 
+// adds the correct token and sends off the data.
+
 router.transactionBreakdown = async (req, res) => {
   res.setHeader('Content-Type', 'application/json')
   const id = req.body.transaction[1]

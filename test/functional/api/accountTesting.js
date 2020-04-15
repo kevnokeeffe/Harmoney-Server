@@ -61,7 +61,7 @@ describe('Account Method Tests', async () => {
   });
 
 
-  it('get all Bank of WIT current accounts', async () => {
+  it('should get all Bank of WIT current accounts', async () => {
     request(server)
       .get(apiAccBase + `/current-all-wit`)
       .set('Authorization', token)
@@ -71,7 +71,7 @@ describe('Account Method Tests', async () => {
       })
   })
 
-  it('get all AIB current accounts', async () => {
+  it('should get all AIB current accounts', async () => {
     request(server)
       .get(apiAccBase + `/current-all-aib`)
       .set('Authorization', token)
@@ -81,7 +81,7 @@ describe('Account Method Tests', async () => {
       })
   })
 
-  it('get all Credit Union current accounts', async () => {
+  it('should get all Credit Union current accounts', async () => {
     request(server)
       .get(apiAccBase + `/current-all-cu`)
       .set('Authorization', token)
@@ -91,7 +91,7 @@ describe('Account Method Tests', async () => {
       })
   })
 
-  it('get all Post Office current accounts', async () => {
+  it('should get all Post Office current accounts', async () => {
     request(server)
       .get(apiAccBase + `/current-all-post`)
       .set('Authorization', token)
@@ -101,7 +101,7 @@ describe('Account Method Tests', async () => {
       })
   })
 
-  it('get all Bank of WIT savings accounts', async () => {
+  it('should get all Bank of WIT savings accounts', async () => {
     request(server)
       .get(apiAccBase + `/saving-all-wit`)
       .set('Authorization', token)
@@ -111,7 +111,7 @@ describe('Account Method Tests', async () => {
       })
   })
 
-  it('get all AIB savings accounts', async () => {
+  it('should get all AIB savings accounts', async () => {
     request(server)
       .get(apiAccBase + `/saving-all-aib`)
       .set('Authorization', token)
@@ -121,7 +121,7 @@ describe('Account Method Tests', async () => {
       })
   })
 
-  it('get all Credit Union savings accounts', async () => {
+  it('should get all Credit Union savings accounts', async () => {
     request(server)
       .get(apiAccBase + `/saving-all-cu`)
       .set('Authorization', token)
@@ -131,7 +131,7 @@ describe('Account Method Tests', async () => {
       })
   })
 
-  it('get all Post Office savings accounts', async () => {
+  it('should get all Post Office savings accounts', async () => {
     request(server)
       .get(apiAccBase + `/saving-all-post`)
       .set('Authorization', token)
@@ -140,7 +140,7 @@ describe('Account Method Tests', async () => {
         expect(resp)
       })
   })
-  
+
   it('should delete a user', () => {
     return request(server)
       .delete(apiBase + `/authy-delete/${validId}`)

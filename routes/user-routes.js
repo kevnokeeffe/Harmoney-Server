@@ -12,13 +12,9 @@ router.post('/authy-validate', authyUserController.validate);
 router.post('/authy-login', authyUserController.authyLogin);
 // Authy validate code route
 router.post('/authy-validate-code-signup', authyUserController.validateCode);
-// Check user by email
-router.get('/check-user-email', authyUserController.checkEmailExists)
 // Send validation code for login
 router.post('/authy-validate-code-login', authyUserController.validateCodeLogin);
-// Authy logout route
-router.post('/authy-logout', authyUserController.authyLogout);
-
+// Check signup email
 router.post('/authy-check-signup-email', authyUserController.authyUserCheckSignUpEmail);
 // Check if user email exists
 router.post('/authy-user-email', authyUserController.authyUserEmail);

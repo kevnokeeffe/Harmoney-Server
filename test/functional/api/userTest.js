@@ -120,6 +120,53 @@ it("should try login with the right user but wrong password", () => {
 
 });
 
+it("should find a user by email", () => {
+    request(server)
+        .post(apiBase + '/authy-check-signup-email')
+        .send({"email": newUser.email})
+        .expect(200)
+        .then(res =>{
+            expect(res).to.exist;
+            expect(res.body.message).equals(false);
+        })
+});
+
+it("should not find a user by email", () => {
+    let empty = "empty"
+    request(server)
+        .post(apiBase + '/authy-check-signup-email')
+        .send(empty)
+        .expect(200)
+        .then(res =>{
+            expect(res).to.exist;
+            expect(res.body.message).equals(true);
+        })
+});
+
+it("should find a user by login email", () => {
+    request(server)
+        .post(apiBase + '/authy-user-email')
+        .send({"email": newUser.email})
+        .expect(200)
+        .then(res =>{
+            expect(res).to.exist;
+            expect(res.body.message).equals(true);
+        })
+});
+
+
+it("should not find a user by login email", () => {
+    request(server)
+        .post(apiBase + '/authy-user-email')
+        .send({"cake": "newUser.email"})
+        .expect(200)
+        .then(res =>{
+            expect(res).to.exist;
+            expect(res.body.message).equals(false);
+            //expect(res.body.auth).equals(false);
+        })
+});
+
 it("should delete a user", () => {
             try {
               return request(server)
