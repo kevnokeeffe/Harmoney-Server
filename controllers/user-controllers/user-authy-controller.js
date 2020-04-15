@@ -154,6 +154,15 @@ router.authyLogout = function (req, res) {
 	});
 };
 
+router.deleteUser = (req, res) => {
+	res.setHeader('Content-Type', 'application/json');
+	User.deleteOne({ '_id': req.params.id }).exec().then(promis => {
+		res.status(200).json({ message: true, promis: promis });
+	}).catch(err => {
+		res.status(500).json({ message: false, error: err });
+	});
+};
+
 // Find a users phone number via email send true to server if found false if not
 // If found triger the validate function to send verification text to mobile number.
 router.authyUserEmail = (req,res) => {
