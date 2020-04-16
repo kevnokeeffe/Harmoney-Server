@@ -6,7 +6,7 @@ let router = express.Router();
 const axios = require('axios');
 const FiRecord = require('../../models/financial-institution/financial-institution-details');
 const FiDetails = require('../../models/financial-institution/account');
-const UserModel = require('../../models/users-models/user');
+
 // CURRENT ACCOUNT GET METHODS
 
 // Get all WIT Current Accounts - Working
@@ -18,9 +18,8 @@ router.getAllWITcurrentAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp !== null){
-					refreshToken = resp.refreshToken;
-					}
+				if (resp !== null && resp.userID === req.userId){
+					refreshToken = resp.refreshToken;}
 			})
 			.then(async () => {
 				if (refreshToken!==null){
@@ -60,7 +59,7 @@ router.getAllAIBcurrentAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp !== null){
+				if (resp !== null && resp.userID === req.userId){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async resp => {
@@ -101,7 +100,7 @@ router.getAllPostCurrentAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp !== null){
+				if (resp !== null && resp.userID === req.userId){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async () => {
@@ -142,7 +141,7 @@ router.getAllCUcurrentAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp !== null){
+				if (resp !== null && resp.userID === req.userId){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async resp => {
@@ -185,7 +184,7 @@ router.getAllWITsavingsAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp !== null){
+				if (resp !== null && resp.userID === req.userId){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async resp => {
@@ -224,9 +223,9 @@ router.getAllAIBsavingsAccounts = async (req, res) => {
 	let name = 'AIB';
 	FiRecord.findOne({ fiName: name }).then(user => {
 		let id = user.id;
-		FiDetails.findOne({ financialInstitutionID: id })
+		FiDetails.findOne({ financialInstitutionID: id})
 			.then(resp => {
-				if (resp !== null){
+				if (resp !== null && resp.userID === req.userId){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async resp => {
@@ -267,7 +266,7 @@ router.getAllCUsavingsAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp !== null){
+				if (resp !== null && resp.userID === req.userId){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async resp => {
@@ -308,7 +307,7 @@ router.getAllPostSavingsAccounts = async (req, res) => {
 		let id = user.id;
 		FiDetails.findOne({ financialInstitutionID: id })
 			.then(resp => {
-				if (resp !== null){
+				if (resp !== null && resp.userID === req.userId){
 					refreshToken = resp.refreshToken;}
 			})
 			.then(async resp => {
@@ -348,5 +347,7 @@ router.deleteFiDetails = (req, res) => {
 		res.status(500).json({ message: false, error: err });
 	});
 };
+
+
 
 module.exports = router;

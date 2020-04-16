@@ -16,6 +16,6 @@ router.post('/login-refresh-credit-union', auth.verifyToken, fiController.loginR
 router.post('/login-refresh-post', auth.verifyToken, fiController.loginRefreshPost);
 
 // Get all fi details and add them to the database.
-router.get('/get-fi-details',fiController.getAllFIDetails);
+router.get('/get-fi-details', fiController.getAllFIDetails);
 
 module.exports = router;
