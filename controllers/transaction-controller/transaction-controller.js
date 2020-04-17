@@ -3,6 +3,10 @@ let router = express.Router()
 const axios = require('axios')
 const FiRecord = require('../../models/financial-institution/financial-institution-details')
 const FiDetails = require('../../models/financial-institution/account')
+let refreshTokenPost = null
+let refreshTokenBOW = null
+let refreshTokenCU = null
+let refreshTokenAIB = null
 
 // This method does all the transcation heavy work. 
 // Finds the financial instutition the transaction is associated with, 
@@ -11,11 +15,6 @@ const FiDetails = require('../../models/financial-institution/account')
 router.transactionBreakdown = async (req, res) => {
   res.setHeader('Content-Type', 'application/json')
   const id = req.body.transaction[1]
-  let refreshTokenPost = null
-  let refreshTokenBOW = null
-  let refreshTokenCU = null
-  let refreshTokenAIB = null
-
   await FiRecord.findOne({ fiName: process.env.POST }).then((record) => {
     let idx = record.id
     FiDetails.findOne({ financialInstitutionID: idx }).then((resp) => {
@@ -365,7 +364,7 @@ router.transactionBreakdown = async (req, res) => {
           Authorization: refreshTokenBOW,
         },
       }
-    ).then(resp => {
+    ).then(async resp => {
       let data = resp.data
       if (resp.data.message === true) {
         res.status(200).send({ data, message:true })
@@ -377,6 +376,7 @@ router.transactionBreakdown = async (req, res) => {
       return res.status(404).send({ message: false });
     })
   }
+
 // Get all transactions from savings account WIT
   router.transactionSaveingsWIT= async (req,res)=>{
     await axios

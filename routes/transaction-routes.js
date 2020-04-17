@@ -2,9 +2,6 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/transaction-controller/transaction-controller');
 const auth = require('../middleware/authenticate');
-const axios = require('axios')
-const FiRecord = require('../models/financial-institution/financial-institution-details')
-const FiDetails = require('../models/financial-institution/account')
 
 router.post('/execute-internal', auth, controller.transactionBreakdown);
 
