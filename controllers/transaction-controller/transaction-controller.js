@@ -352,9 +352,194 @@ router.transactionBreakdown = async (req, res) => {
     .catch((error) => {
       return res.send({ message: false });
     })
+  }
 
+// Get all transactions from current account WIT
+  router.transactionCurrentWIT= async (req,res)=>{
+    await axios
+    .get(
+      process.env.WIT_BANK_SERVER +
+        '/api/account/get-transactions-current/',    
+      {
+        headers: {
+          Authorization: refreshTokenBOW,
+        },
+      }
+    ).then(resp => {
+      let data = resp.data
+      if (resp.data.message === true) {
+        res.status(200).send({ data, message:true })
+      }
+      if(resp.data.message === "No transactions"){
+        res.send({message:"No transactions"})
+      }
+    }).catch((error) => {
+      return res.status(404).send({ message: false });
+    })
+  }
+// Get all transactions from savings account WIT
+  router.transactionSaveingsWIT= async (req,res)=>{
+    await axios
+    .get(
+      process.env.WIT_BANK_SERVER +
+        '/api/account/get-transactions-savings/',    
+      {
+        headers: {
+          Authorization: refreshTokenBOW,
+        },
+      }
+    ).then(resp => {
+      let data = resp.data
+      if (resp.data.message === true) {
+        res.status(200).send({ data, message:true })
+      }
+      if(resp.data.message === "No transactions"){
+        res.send({message:"No transactions"})
+      }
+    }).catch((error) => {
+      return res.status(404).send({ message: false });
+    })
+  }
 
+  // Get all transactions from current account AIB
+  router.transactionCurrentAIB= async (req,res)=>{
+    await axios
+    .get(
+      process.env.AIB_BANK_SERVER +
+        '/api/account/get-transactions-current/',    
+      {
+        headers: {
+          Authorization: refreshTokenAIB,
+        },
+      }
+    ).then(resp => {
+      let data = resp.data
+      if (resp.data.message === true) {
+        res.status(200).send({ data, message:true })
+      }
+      if(resp.data.message === "No transactions"){
+        res.send({message:"No transactions"})
+      }
+    }).catch((error) => {
+      return res.status(404).send({ message: false });
+    })
+  }
+// Get all transactions from savings account AIB
+  router.transactionSaveingsAIB= async (req,res)=>{
+    await axios
+    .get(
+      process.env.AIB_BANK_SERVER +
+        '/api/account/get-transactions-savings/',    
+      {
+        headers: {
+          Authorization: refreshTokenAIB,
+        },
+      }
+    ).then(resp => {
+      let data = resp.data
+      if (resp.data.message === true) {
+        res.status(200).send({ data, message:true })
+      }
+      if(resp.data.message === "No transactions"){
+        res.send({message:"No transactions"})
+      }
+    }).catch((error) => {
+      return res.status(404).send({ message: false });
+    })
+  }
 
+  // Get all transactions from current account CU
+  router.transactionCurrentCU= async (req,res)=>{
+    await axios
+    .get(
+      process.env.CREDIT_UNION_SERVER +
+        '/api/account/get-transactions-current/',    
+      {
+        headers: {
+          Authorization: refreshTokenCU,
+        },
+      }
+    ).then(resp => {
+      let data = resp.data
+      if (resp.data.message === true) {
+        res.status(200).send({ data, message:true })
+      }
+      if(resp.data.message === "No transactions"){
+        res.send({message:"No transactions"})
+      }
+    }).catch((error) => {
+      return res.status(404).send({ message: false });
+    })
+  }
+// Get all transactions from savings account CU
+  router.transactionSaveingsCU= async (req,res)=>{
+    await axios
+    .get(
+      process.env.CREDIT_UNION_SERVER +
+        '/api/account/get-transactions-savings/',    
+      {
+        headers: {
+          Authorization: refreshTokenCU,
+        },
+      }
+    ).then(resp => {
+      let data = resp.data
+      if (resp.data.message === true) {
+        res.status(200).send({ data, message:true })
+      }
+      if(resp.data.message === "No transactions"){
+        res.send({message:"No transactions"})
+      }
+    }).catch((error) => {
+      return res.status(404).send({ message: false });
+    })
+  }
+
+  // Get all transactions from current account Post
+  router.transactionCurrentPost= async (req,res)=>{
+    await axios
+    .get(
+      process.env.AN_POST_SERVER +
+        '/api/account/get-transactions-current/',    
+      {
+        headers: {
+          Authorization: refreshTokenPost,
+        },
+      }
+    ).then(resp => {
+      let data = resp.data
+      if (resp.data.message === true) {
+        res.status(200).send({ data, message:true })
+      }
+      if(resp.data.message === "No transactions"){
+        res.send({message:"No transactions"})
+      }
+    }).catch((error) => {
+      return res.status(404).send({ message: false });
+    })
+  }
+// Get all transactions from savings account WIT
+  router.transactionSaveingsPost= async (req,res)=>{
+    await axios
+    .get(
+      process.env.AN_POST_SERVER +
+        '/api/account/get-transactions-savings/',    
+      {
+        headers: {
+          Authorization: refreshTokenPost,
+        },
+      }
+    ).then(resp => {
+      let data = resp.data
+      if (resp.data.message === true) {
+        res.status(200).send({ data, message:true })
+      }
+      if(resp.data.message === "No transactions"){
+        res.send({message:"No transactions"})
+      }
+    }).catch((error) => {
+      return res.status(404).send({ message: false });
+    })
   }
 
 module.exports = router

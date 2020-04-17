@@ -19,5 +19,5 @@ router.get('/saving-all-post', auth.verifyToken, controller.getAllPostSavingsAcc
 
 //DELETE ACCOUNT DATA
 router.delete('/delete/fi-details/:id', auth.verifyToken, controller.deleteFiDetails);
-
+router.post('/delete/fi-individual', auth.verifyToken, controller.deleteFi)
 module.exports = router;

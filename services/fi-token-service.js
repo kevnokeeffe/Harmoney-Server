@@ -18,7 +18,7 @@ router.saveRefreshToken = async (tokenB, uID) => {
 		if (error || !account) {
 			createAccount(tokenB, fiID,userFiID,fiEmail ,uID);
 		}
-		else {
+		else if (account.userID === uID){
 			// Update account
 			const updateAccount = account;
 			updateAccount.financialInstitutionID = fiID;
@@ -31,6 +31,9 @@ router.saveRefreshToken = async (tokenB, uID) => {
 				} else {
 					return goodMessage;}
 			});
+		}
+		else if (account && account.userID != uID){
+			createAccount(tokenB, fiID,userFiID,fiEmail ,uID);
 		}
 	});
 };

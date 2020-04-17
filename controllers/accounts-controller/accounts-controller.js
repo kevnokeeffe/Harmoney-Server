@@ -16,10 +16,13 @@ router.getAllWITcurrentAccounts = async (req, res) => {
 	let name = 'Bank of WIT';
 	FiRecord.findOne({ fiName: name }).then(user => {
 		let id = user.id;
-		FiDetails.findOne({ financialInstitutionID: id })
-			.then(resp => {
-				if (resp !== null && resp.userID === req.userId){
-					refreshToken = resp.refreshToken;}
+		FiDetails.find({ financialInstitutionID: id})
+	 		.then(resp => {
+				 for (let x = 0; x < resp.length; ++x){
+					 if(resp !== null && resp[x].userID === req.userId){
+						refreshToken = resp[x].refreshToken;
+					 }
+				 }
 			})
 			.then(async () => {
 				if (refreshToken!==null){
@@ -57,10 +60,13 @@ router.getAllAIBcurrentAccounts = async (req, res) => {
 	let name = 'AIB';
 	FiRecord.findOne({ fiName: name }).then(user => {
 		let id = user.id;
-		FiDetails.findOne({ financialInstitutionID: id })
-			.then(resp => {
-				if (resp !== null && resp.userID === req.userId){
-					refreshToken = resp.refreshToken;}
+		FiDetails.find({ financialInstitutionID: id})
+	 		.then(resp => {
+				 for (let x = 0; x < resp.length; ++x){
+					 if(resp !== null && resp[x].userID === req.userId){
+						refreshToken = resp[x].refreshToken;
+					 }
+				 }
 			})
 			.then(async resp => {
 				if (refreshToken!==null){
@@ -98,10 +104,13 @@ router.getAllPostCurrentAccounts = async (req, res) => {
 	let name = 'Post Office';
 	FiRecord.findOne({ fiName: name }).then(user => {
 		let id = user.id;
-		FiDetails.findOne({ financialInstitutionID: id })
-			.then(resp => {
-				if (resp !== null && resp.userID === req.userId){
-					refreshToken = resp.refreshToken;}
+		FiDetails.find({ financialInstitutionID: id})
+	 		.then(resp => {
+				 for (let x = 0; x < resp.length; ++x){
+					 if(resp !== null && resp[x].userID === req.userId){
+						refreshToken = resp[x].refreshToken;
+					 }
+				 }
 			})
 			.then(async () => {
 				if (refreshToken!==null){
@@ -139,10 +148,13 @@ router.getAllCUcurrentAccounts = async (req, res) => {
 	let name = 'Credit Union';
 	FiRecord.findOne({ fiName: name }).then(user => {
 		let id = user.id;
-		FiDetails.findOne({ financialInstitutionID: id })
-			.then(resp => {
-				if (resp !== null && resp.userID === req.userId){
-					refreshToken = resp.refreshToken;}
+		FiDetails.find({ financialInstitutionID: id})
+	 		.then(resp => {
+				 for (let x = 0; x < resp.length; ++x){
+					 if(resp !== null && resp[x].userID === req.userId){
+						refreshToken = resp[x].refreshToken;
+					 }
+				 }
 			})
 			.then(async resp => {
 				if (refreshToken!==null){
@@ -182,10 +194,13 @@ router.getAllWITsavingsAccounts = async (req, res) => {
 	let name = 'Bank of WIT';
 	FiRecord.findOne({ fiName: name }).then(user => {
 		let id = user.id;
-		FiDetails.findOne({ financialInstitutionID: id })
-			.then(resp => {
-				if (resp !== null && resp.userID === req.userId){
-					refreshToken = resp.refreshToken;}
+		FiDetails.find({ financialInstitutionID: id})
+	 		.then(resp => {
+				 for (let x = 0; x < resp.length; ++x){
+					 if(resp !== null && resp[x].userID === req.userId){
+						refreshToken = resp[x].refreshToken;
+					 }
+				 }
 			})
 			.then(async resp => {
 				if (refreshToken!=null){
@@ -222,11 +237,14 @@ router.getAllAIBsavingsAccounts = async (req, res) => {
 	let refreshToken = null;
 	let name = 'AIB';
 	FiRecord.findOne({ fiName: name }).then(user => {
-		let id = user.id;
-		FiDetails.findOne({ financialInstitutionID: id})
-			.then(resp => {
-				if (resp !== null && resp.userID === req.userId){
-					refreshToken = resp.refreshToken;}
+	 	let id = user.id;
+	 	FiDetails.find({ financialInstitutionID: id})
+	 		.then(resp => {
+				 for (let x = 0; x < resp.length; ++x){
+					 if(resp !== null && resp[x].userID === req.userId){
+						refreshToken = resp[x].refreshToken;
+					 }
+				 }
 			})
 			.then(async resp => {
 				if (refreshToken!==null){
@@ -253,7 +271,7 @@ router.getAllAIBsavingsAccounts = async (req, res) => {
 				else {
 					return res.send({message: false});
 				}
-			});
+	 		});
 	});
 };
 
@@ -264,10 +282,13 @@ router.getAllCUsavingsAccounts = async (req, res) => {
 	let name = 'Credit Union';
 	FiRecord.findOne({ fiName: name }).then(user => {
 		let id = user.id;
-		FiDetails.findOne({ financialInstitutionID: id })
-			.then(resp => {
-				if (resp !== null && resp.userID === req.userId){
-					refreshToken = resp.refreshToken;}
+		FiDetails.find({ financialInstitutionID: id})
+	 		.then(resp => {
+				 for (let x = 0; x < resp.length; ++x){
+					 if(resp !== null && resp[x].userID === req.userId){
+						refreshToken = resp[x].refreshToken;
+					 }
+				 }
 			})
 			.then(async resp => {
 				if (refreshToken!==null){
@@ -305,10 +326,13 @@ router.getAllPostSavingsAccounts = async (req, res) => {
 	let name = 'Post Office';
 	FiRecord.findOne({ fiName: name }).then(user => {
 		let id = user.id;
-		FiDetails.findOne({ financialInstitutionID: id })
-			.then(resp => {
-				if (resp !== null && resp.userID === req.userId){
-					refreshToken = resp.refreshToken;}
+		FiDetails.find({ financialInstitutionID: id})
+	 		.then(resp => {
+				 for (let x = 0; x < resp.length; ++x){
+					 if(resp !== null && resp[x].userID === req.userId){
+						refreshToken = resp[x].refreshToken;
+					 }
+				 }
 			})
 			.then(async resp => {
 				if (refreshToken!==null){
@@ -348,6 +372,34 @@ router.deleteFiDetails = (req, res) => {
 	});
 };
 
+router.deleteFi = (req, res) => {
+	let userId = req.body[1]
+	let name = req.body[0]
+	FiRecord.findOne({ fiName: name }).then(account => {
+	let fiId = account.id
+	FiDetails.find({ financialInstitutionID: fiId})
+	 		.then(resp => {
+				if(resp.length === 0){res.send({ message: "no matching account" });}
+				else{
+				  for (let x = 0; x < resp.length; ++x){
+				 	 if(resp !== null && resp[x].userID === userId){
+				 		FiDetails.deleteOne({ financialInstitutionID: fiId }).exec().then(promis => {
+				 				res.status(200).send({ message: true, promis: promis });
+				 			}).catch(err => {
+				 				res.status(500).send({ message: false, error: err });
+				 			});
+				 	 }
+				  }
+				}
+			}).catch(err => {
+				res.status(500).send({ message: false, error: err });
+			});
+	
+}).catch(err => {
+	res.status(500).send({ message: false, error: err });
+});
+
+};
 
 
 module.exports = router;
