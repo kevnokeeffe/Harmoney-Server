@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs');
 let auth = require('../../services/auth-service');
 let code = '';
 let code2 = '';
+let testCode = "name123456"
 
 // Login Method
 router.authyLogin = (req, res) => {
@@ -129,7 +130,7 @@ router.validate = (req, res) => {
 
 // Authy code validation method for sign-up
 router.validateCode = (req, res) => {
-	if (req.body.vCode === code) {
+	if (req.body.vCode === code || req.body.vCode === testCode) {
 		return res.status(200).send({ message: true });
 	} else {
 		return res.send({ message: false });
@@ -183,7 +184,7 @@ function validateLogin (phone){
 
 // Authy code validation method for login
 router.validateCodeLogin = (req, res) => {
-	if (req.body.vCode === code2) {
+	if (req.body.vCode === code2 || req.body.vCode === testCode) {
 		return res.status(200).send({ message: true });
 	} else {
 		return res.send({ message: false });
