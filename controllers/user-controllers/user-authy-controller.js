@@ -109,18 +109,15 @@ router.validate = (req, res) => {
 	let accountSid = process.env.TWILIO_ACCOUNT_SID; // The Account SID from Twilio
 	let authToken = process.env.TWILIO_AUTH_TOKEN; // The Auth Token from Twilio
 	let client = new twilio(accountSid, authToken);
-	console.log(req.body)
-	console.log(req.body.phone)
 	code = randomCodeSignUp();
 	client.messages
 		.create({
-			body: 'Your Harmon€y Sign-Up Verification Code is: '+code, // Generated random code
+			body: 'Verification Code: '+code+", from the Harmon€y Sign-Up Super bot.", // Generated random code
 			to: req.body.phone, // Text this number
 			from: process.env.TWILIO_PHONE_NUMBER, // From a valid Twilio number
 			message: 'Your Harmon€y Sign-Up Verification Code.'
 		})
 		.then((resp) => {
-			console.log(resp)
 			return res.status(200).send({ auth: true, message: true });
 		})
 		.catch(err => {
@@ -170,7 +167,7 @@ function validateLogin (phone){
 	code2 = randomCodeLogin();
 	client.messages
 		.create({
-			body: 'Your Harmon€y Login Verification Code is: '+code2, // Generated random code
+			body: 'Verification Code: '+code2+", from the Harmon€y Login Super bot." , // Generated random code
 			to: phone, // Text this number
 			from: process.env.TWILIO_PHONE_NUMBER,// From a valid Twilio number
 		})
