@@ -401,7 +401,6 @@ router.deleteFi = (req, res) => {
               if (resp !== null && resp[x].userID === userId) {
                 FiDetails.deleteOne({ financialInstitutionID: fiId })
                   .then((promis) => {
-					valid = true
                     return res.status(200).send({ message: true, promis: promis })
                   })
                   .catch((err) => {
