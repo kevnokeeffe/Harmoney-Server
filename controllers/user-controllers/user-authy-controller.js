@@ -68,8 +68,8 @@ router.registerAuthy = (req, res) => {
 					})
 					.catch(err => {
 						res
-							.status(500)
-							.json({ message: 'Error Invalid Inputs', error: err });
+							
+							.send({ message: false, error: err });
 					});
 			}
 		});
@@ -100,7 +100,7 @@ router.authyUserCheckSignUpEmail = (req,res) => {
 			}
 			return res.send({message: false});
 		}).catch(err => {
-			res.status(501).json({ message: 'Error Invalid Inputs', error: err });
+			res.send({ message: false, error: err });
 		});
 };
 
@@ -124,13 +124,13 @@ router.validate = (req, res) => {
 			return res.status(200).send({ auth: true, message: true });
 		})
 		.catch(err => {
-			res.status(501).json({ message: 'Error Invalid Inputs', error: err });
+			res.json({ message: false, error: err });
 		});
 };
 
 // Authy code validation method for sign-up
 router.validateCode = (req, res) => {
-	if (req.body.vCode === code || req.body.vCode === testCode) {
+	if (req.body.vCode === code) {
 		return res.status(200).send({ message: true });
 	} else {
 		return res.send({ message: false });
@@ -178,7 +178,7 @@ function validateLogin (phone){
 			return res.status(200).send({ auth: true, message: true });
 		})
 		.catch(err => {
-			res.status(500).json({ message: 'Error Invalid Inputs', error: err });
+			res.send({ message: false, error: err });
 		});
 };
 
