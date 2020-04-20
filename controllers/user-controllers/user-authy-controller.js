@@ -77,7 +77,7 @@ router.registerAuthy = (req, res) => {
 
 // Method to generate a random code for Sign-up
 function randomCodeSignUp () {
-	let chars = 'acdefhikmnoqrstuvwxyz0123456789ABCDEFGHJKLMNPQRSTUVWXYZ'.split(
+	let chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZ'.split(
 		''
 	);
 	let count = 10;
@@ -112,7 +112,7 @@ router.validate = (req, res) => {
 	code = randomCodeSignUp();
 	client.messages
 		.create({
-			body: 'Verification Code: '+code+", from the Harmon€y Sign-Up Super bot.", // Generated random code
+			body: 'Verification Code: '+code+" from the Harmon€y Sign-Up Super bot.", // Generated random code
 			to: req.body.phone, // Text this number
 			from: process.env.TWILIO_PHONE_NUMBER, // From a valid Twilio number
 			message: 'Your Harmon€y Sign-Up Verification Code.'
@@ -167,7 +167,7 @@ function validateLogin (phone){
 	code2 = randomCodeLogin();
 	client.messages
 		.create({
-			body: 'Verification Code: '+code2+", from the Harmon€y Login Super bot." , // Generated random code
+			body: 'Verification Code: '+code2+" from the Harmon€y Login Super bot." , // Generated random code
 			to: phone, // Text this number
 			from: process.env.TWILIO_PHONE_NUMBER,// From a valid Twilio number
 		})
