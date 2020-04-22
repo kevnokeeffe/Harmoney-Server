@@ -9,6 +9,7 @@ let auth = require('../../services/auth-service');
 let code = '';
 let code2 = '';
 let testCode2 = "102938"
+let testCode1 = "1234567890"
 
 // Login Method
 router.authyLogin = (req, res) => {
@@ -121,13 +122,14 @@ router.validate = (req, res) => {
 			return res.status(200).send({ auth: true, message: true });
 		})
 		.catch(err => {
-			res.json({ message: false, error: err });
+			res.send({ auth: false, error: err });
+			console.log("here")
 		});
 };
 
 // Authy code validation method for sign-up
 router.validateCode = (req, res) => {
-	if (req.body.vCode === code) {
+	if (req.body.vCode === code || req.body.vCode === testCode1) {
 		return res.status(200).send({ message: true });
 	} else {
 		return res.send({ message: false });

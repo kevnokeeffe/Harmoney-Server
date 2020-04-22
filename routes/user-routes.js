@@ -20,5 +20,12 @@ router.post('/authy-check-signup-email', authyUserController.authyUserCheckSignU
 router.post('/authy-user-email', authyUserController.authyUserEmail);
 // Delete user by id
 router.delete('/authy-delete/:id', auth.verifyToken, authyUserController.deleteUser);
+router.get('/valid-token', auth.verifyToken, (req, res) => {
+	let obj = {
+		message: true,
+		auth:true,
+	};
+	res.status(200).send(obj);
+});
 
 module.exports = router;

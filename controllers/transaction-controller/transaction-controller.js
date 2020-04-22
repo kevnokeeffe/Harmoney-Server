@@ -15,6 +15,7 @@ let refreshTokenAIB = null
 router.transactionBreakdown = async (req, res) => {
   res.setHeader('Content-Type', 'application/json')
   const id = req.body.transaction[1]
+  console.log(req.body.transaction)
   await FiRecord.findOne({ fiName: process.env.POST }).then((record) => {
     let idx = record.id
     FiDetails.findOne({ financialInstitutionID: idx }).then((resp) => {
