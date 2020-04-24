@@ -11,7 +11,8 @@ router.generateJWT = user => {
 		fName: user.fName,
 		lName: user.lName,
 		id: user._id,
-		email: user.email
+		email: user.email,
+		phone: user.phone
 	};
 
 	let verifyOptions = {

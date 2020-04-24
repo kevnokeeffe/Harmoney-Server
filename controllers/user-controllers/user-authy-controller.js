@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+const tokenService = require('../../services/fi-token-service')
 const User = require('../../models/users-models/user');
 let express = require('express');
 let router = express.Router();
@@ -105,6 +106,21 @@ router.authyUserCheckSignUpEmail = (req,res) => {
 		});
 };
 
+// Method to see if the user mobile number exists on the database already
+router.authyUserCheckSignUpPhone = (req,res) => {
+	res.setHeader('Content-Type', 'application/json');
+	const { phone } = req.body;
+	User.findOne({ phone })
+		.then(user => {
+			if (!user) {
+				return res.send({message: true});
+			}
+			return res.send({message: false});
+		}).catch(err => {
+			res.send({ message: false, error: err });
+		});
+};
+
 // Method to send random code via text message for sign-up validation
 router.validate = (req, res) => {
 	let accountSid = process.env.TWILIO_ACCOUNT_SID; // The Account SID from Twilio
@@ -158,6 +174,55 @@ router.authyUserEmail = (req,res) => {
 			}
 			validateLogin(user.phone);
 			return res.send({message: true});
+		});
+};
+
+// Update email
+router.authyUserEmailUpdate = (req,res) => {
+	res.setHeader('Content-Type', 'application/json');
+	const tokenData = tokenService.decodeHeaderToken(req)
+	console.log(tokenData)
+	const { email } = req.body[0];
+	User.findOne({ email })
+		.then(user => {
+			if (!user) {
+				return res.send({message: false});
+        
+			}
+			const updateUserAccount = user;
+			updateUserAccount.phone = req.body[1]
+			console.log(user)
+			User.findByIdAndUpdate({_id: updateUserAccount._id}, updateUserAccount, error  =>{
+				if (error){
+					return res.send({message:false});
+				} else {
+					return res.send({message:true});}
+			});
+			
+		});
+};
+
+// Update Phone
+router.authyUserPhoneUpdate = (req,res) => {
+	res.setHeader('Content-Type', 'application/json');
+	const tokenData = tokenService.decodeHeaderToken(req)
+	console.log(tokenData)
+	const { id } = req.body[0];
+	User.findOne({ id })
+		.then(user => {
+			if (!user) {
+				return res.send({message: false});
+        
+			}
+			const updateUserAccount = user;
+			updateUserAccount.phone = req.body[1]
+			console.log(user)
+			User.findByIdAndUpdate({_id: updateUserAccount._id}, updateUserAccount, error  =>{
+				if (error){
+					return res.send({message:false});
+				} else {
+					return res.send({message:true});}
+			});
 		});
 };
 
