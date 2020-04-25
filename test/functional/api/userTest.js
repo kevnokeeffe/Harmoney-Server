@@ -88,9 +88,8 @@ it("should try create a user with invalid values and fail", () => {
         .post(apiBase + '/authy-register')
         .set("Accept", "application/json")
         .send(user)
-        .expect(500)
         .then(res => {
-            expect(res.body.message).equals('Error Invalid Inputs');
+            expect(res.body.message).equals(false);
         });
 });
 
@@ -171,7 +170,7 @@ it("should delete a user", () => {
             try {
               return request(server)
                     .delete(apiBase + `/authy-delete/${validId}`)
-                    .set("Authorization", token)
+                    .set("authenticate", token)
                     .set("Accept", "application/json")
                     .expect(200)
                     .then(res => {

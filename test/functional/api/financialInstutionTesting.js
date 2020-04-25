@@ -60,7 +60,7 @@ describe('Financial Instution Account Login Testing',  async () => {
     it("should login to Bank of WIT", async () => {
         request(server)
             .post(apiFIBase + '/login-refresh-wit')
-            .set("Authorization", token)
+            .set("authenticate", token)
             .send(user)
             .expect(200) 
     });
@@ -68,7 +68,7 @@ describe('Financial Instution Account Login Testing',  async () => {
     it("should login to AIB", async () => {
         request(server)
             .post(apiFIBase + '/login-refresh-aib')
-            .set("Authorization", token)
+            .set("authenticate", token)
             .send(user)
             .expect(200) 
     });
@@ -76,7 +76,7 @@ describe('Financial Instution Account Login Testing',  async () => {
     it("should login to Credit Union", async () => {
         request(server)
             .post(apiFIBase + '/login-refresh-credit-union')
-            .set("Authorization", token)
+            .set("authenticate", token)
             .send(user)
             .expect(200) 
     });
@@ -84,7 +84,7 @@ describe('Financial Instution Account Login Testing',  async () => {
     it("should login to Post Office", async () => {
         request(server)
             .post(apiFIBase + '/login-refresh-post')
-            .set("Authorization", token)
+            .set("authenticate", token)
             .send(user)
             .expect(200) 
     });
@@ -92,7 +92,7 @@ describe('Financial Instution Account Login Testing',  async () => {
     it("should login to Post Office Access", async () => {
         request(server)
             .post(apiFIBase + '/login-access-post')
-            .set("Authorization", token)
+            .set("authenticate", token)
             .send(user)
             .expect(200) 
             .then(resp => {
@@ -103,7 +103,7 @@ describe('Financial Instution Account Login Testing',  async () => {
     it("should login to Credit Union Access", async () => {
         request(server)
             .post(apiFIBase + '/login-access-credit-union')
-            .set("Authorization", token)
+            .set("authenticate", token)
             .send(user)
             .expect(200) 
             .then(resp => {
@@ -114,7 +114,7 @@ describe('Financial Instution Account Login Testing',  async () => {
     it("should login to AIB Access", async () => {
         request(server)
             .post(apiFIBase + '/login-access-aib')
-            .set("Authorization", token)
+            .set("authenticate", token)
             .send(user)
             .expect(200) 
             .then(resp => {
@@ -125,7 +125,7 @@ describe('Financial Instution Account Login Testing',  async () => {
     it("should login to Bank of WIT Access", async () => {
         request(server)
             .post(apiFIBase + '/login-access-wit')
-            .set("Authorization", token)
+            .set("authenticate", token)
             .send(user)
             .expect(200) 
             .then(resp => {
@@ -139,7 +139,7 @@ describe('Delete User Created for Testing',  async () => {
     it("should delete a user", () => {
           return request(server)
                 .delete(apiBase + `/authy-delete/${validId}`)
-                .set("Authorization", token)
+                .set("authenticate", token)
                 .set("Accept", "application/json")
                 .expect(200)
                 .then(res => {
