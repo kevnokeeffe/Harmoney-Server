@@ -17,7 +17,10 @@ router.get('/saving-all-aib', auth.verifyToken, controller.getAllAIBsavingsAccou
 router.get('/saving-all-cu', auth.verifyToken, controller.getAllCUsavingsAccounts);
 router.get('/saving-all-post', auth.verifyToken, controller.getAllPostSavingsAccounts);
 
-//DELETE ACCOUNT DATA
+// CHECK IF VALID IBAN
+router.post('/check-iban', auth.verifyToken, controller.checkIBAN);
+
+// DELETE ACCOUNT DATA
 router.delete('/delete/fi-details/:id', auth.verifyToken, controller.deleteFiDetails);
 router.post('/delete/fi-individual', auth.verifyToken, controller.deleteFi)
 module.exports = router;

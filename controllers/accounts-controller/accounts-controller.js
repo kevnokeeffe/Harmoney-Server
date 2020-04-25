@@ -422,4 +422,25 @@ router.deleteFi = (req, res) => {
     })
 }
 
+// Check to see if the iban is valid
+router.checkIBAN = async (req,res) =>{
+  let iban = req.body.iban
+  let aibc = axios.get(process.env.AIB_BANK_SERVER + `/api/account/ping-current-individual/iban/${iban}`)
+  let witc = axios.get(process.env.WIT_BANK_SERVER + `/api/account/ping-current-individual/iban/${iban}`)
+  let postc = axios.get(process.env.AN_POST_SERVER + `/api/account/ping-current-individual/iban/${iban}`)
+  let cuc = axios.get(process.env.CREDIT_UNION_SERVER + `/api/account/ping-current-individual/iban/${iban}`)
+  let aibs = axios.get(process.env.AIB_BANK_SERVER + `/api/account/ping-savings-individual/iban/${iban}`)
+  let wits = axios.get(process.env.WIT_BANK_SERVER + `/api/account/ping-savings-individual/iban/${iban}`)
+  let posts = axios.get(process.env.AN_POST_SERVER + `/api/account/ping-savings-individual/iban/${iban}`)
+  let cus = axios.get(process.env.CREDIT_UNION_SERVER + `/api/account/ping-savings-individual/iban/${iban}`)
+  await axios.all([aibc,witc,postc,cuc,aibs,wits,posts,cus]).then(axios.spread(function(aibc,witc,postc,cuc,aibs,wits,posts,cus){
+    let array = [aibc,witc,postc,cuc,aibs,wits,posts,cus]
+    let x = 0
+    for(x=0; x < array.length; x++ ){
+      if(array[x].data.message=== true){return res.send({message:true})}
+    }
+    return res.send({message:false})
+  }))
+}
+
 module.exports = router

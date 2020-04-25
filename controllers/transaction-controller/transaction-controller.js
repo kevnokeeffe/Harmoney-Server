@@ -15,7 +15,6 @@ let refreshTokenAIB = null
 router.transactionBreakdown = async (req, res) => {
   res.setHeader('Content-Type', 'application/json')
   const id = req.body.transaction[1]
-  console.log(req.body.transaction)
   await FiRecord.findOne({ fiName: process.env.POST }).then((record) => {
     let idx = record.id
     FiDetails.findOne({ financialInstitutionID: idx }).then((resp) => {
@@ -77,7 +76,7 @@ router.transactionBreakdown = async (req, res) => {
         axios
           .post(
             process.env.AN_POST_SERVER +
-              '/api/account/update-current-account-with/' +
+              '/api/account/update-current-account-with/'+
               id,
             data,
             { headers: { Authorization: refreshTokenPost } }
@@ -126,7 +125,7 @@ router.transactionBreakdown = async (req, res) => {
           .catch((error) => {
             return res.send({ message: false });
           })
-      } else {}
+      } else if(resp.data.message === false) {}
     })
     .catch((error) => {
       return res.send({ message: false });
@@ -163,7 +162,7 @@ router.transactionBreakdown = async (req, res) => {
         .catch((error) => {
           return res.send({ message: false });
         })
-    } else {}
+    } else if(resp.data.message === false) {}
   })
   .catch((error) => {
     return res.send({ message: false });
@@ -199,7 +198,7 @@ router.transactionBreakdown = async (req, res) => {
         .catch((error) => {
           return res.send({ message: false });
         })
-    } else {}
+    } else if(resp.data.message === false) {}
   })
   .catch((error) => {
     return res.send({ message: false });
@@ -237,7 +236,7 @@ router.transactionBreakdown = async (req, res) => {
         .catch((error) => {
           return res.send({ message: false });
         })
-    } else {}
+    } else if(resp.data.message === false) {}
   })
   .catch((error) => {
     return res.send({ message: false });
@@ -273,7 +272,7 @@ router.transactionBreakdown = async (req, res) => {
           .catch((error) => {
             return res.send({ message: false });
           })
-      } else {}
+      } else if(resp.data.message === false) {}
     })
     .catch((error) => {
       return res.send({ message: false });
@@ -311,7 +310,7 @@ router.transactionBreakdown = async (req, res) => {
           .catch((error) => {
             return res.send({ message: false });
           })
-      } else {}
+      } else if(resp.data.message === false) {}
     })
     .catch((error) => {
       return res.send({ message: false });
@@ -347,7 +346,7 @@ router.transactionBreakdown = async (req, res) => {
           .catch((error) => {
             return res.send({ message: false });
           })
-      } else {}
+      } else if(resp.data.message === false) {}
     })
     .catch((error) => {
       return res.send({ message: false });
