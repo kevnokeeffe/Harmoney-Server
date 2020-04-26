@@ -22,41 +22,4 @@ router.generateJWT = user => {
 	return token;
 };
 
-router.decodeToken = (req) => {
-	const token = req.headers.authorization || req.headers
-		['authenticate'];
-	if (!token){
-		return null;
-	}
-	try {
-		return jwt.verify(token, process.env.SECRET_KEY);
-	} catch (error){
-		return null;
-	}
-};
-
-router.getEmail= (req) => {
-	const token = decodeToken(req);
-	if (!token){
-		return null;
-	}
-	return token.user.email;
-};
-
-router.getName= (req) => {
-	const token = decodeToken(req);
-	if (!token){
-		return null;
-	}
-	return token.user.fName;
-};
-
-router.getUserID = (req) => {
-	const token = decodeToken(req);
-	if (!token){
-		return null;
-	}
-	return token.user.id;
-};
-
 module.exports = router;
