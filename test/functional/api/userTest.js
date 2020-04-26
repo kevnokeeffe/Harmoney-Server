@@ -192,6 +192,20 @@ it("should not change email tokenless", () => {
         })
 });
 
+it("should test 406 route", () => {
+    request(server)
+    .post(apiBase + '/authy-not-work')
+    .expect(406)
+})
+
+it("should test / route", () => {
+    request(server)
+    .post('/')
+    .then(res=>{
+        expect(res).to.exist;
+    })
+})
+
 it("should change phone", () => {
     let data = [newUser.email,newUser.phone]
     request(server)
