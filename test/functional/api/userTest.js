@@ -153,6 +153,84 @@ it("should find a user by login email", () => {
         })
 });
 
+it("should change email", () => {
+    let data = [newUser.email,newUser.email]
+    request(server)
+        .post(apiBase + '/authy-change-user-email')
+        .set("authenticate", token)
+        .send({data})
+        .expect(200)
+        .then(res =>{
+            expect(res).to.exist;
+            expect(res.body.message).equals(true);
+        })
+});
+
+it("should not change email", () => {
+    let data = ["@gmail.com","two"]
+    request(server)
+        .post(apiBase + '/authy-change-user-email')
+        .set("authenticate", token)
+        .send({data})
+        .expect(200)
+        .then(res =>{
+            expect(res).to.exist;
+            expect(res.body.message).equals(false)
+        })
+});
+
+it("should not change email tokenless", () => {
+    let data = []
+    request(server)
+        .post(apiBase + '/authy-change-user-email')
+        .set("authenticate",null)
+        .send({data})
+        .expect(200)
+        .then(res =>{
+            expect(res).to.exist;
+            expect(res.body.message).equals(false)
+        })
+});
+
+it("should change phone", () => {
+    let data = [newUser.email,newUser.phone]
+    request(server)
+        .post(apiBase + '/authy-change-user-phone')
+        .set("authenticate", token)
+        .send({data})
+        .expect(200)
+        .then(res =>{
+            expect(res).to.exist;
+            expect(res.body.message).equals(true);
+        })
+});
+
+it("should not change phone", () => {
+    let data = ["00000@gmail.com","two"]
+    request(server)
+        .post(apiBase + '/authy-change-user-phone')
+        .set("authenticate", token)
+        .send({data})
+        .expect(200)
+        .then(res =>{
+            expect(res).to.exist;
+            expect(res.body.message).equals(false)
+        })
+});
+
+it("should not change phone tokenless", () => {
+    let data = []
+    request(server)
+        .post(apiBase + '/authy-change-user-phone')
+        .set("authenticate",null)
+        .send({data})
+        .expect(200)
+        .then(res =>{
+            expect(res).to.exist;
+            expect(res.body.message).equals(false)
+        })
+});
+
 
 it("should not find a user by login email", () => {
     request(server)
@@ -162,7 +240,6 @@ it("should not find a user by login email", () => {
         .then(res =>{
             expect(res).to.exist;
             expect(res.body.message).equals(false);
-            //expect(res.body.auth).equals(false);
         })
 });
 

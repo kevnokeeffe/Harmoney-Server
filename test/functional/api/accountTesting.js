@@ -67,7 +67,7 @@ describe('Account Method Tests', async () => {
       .set('authenticate', token)
       .expect(200)
       .then((resp) => {
-        expect(resp)
+        expect(resp.body.message).equals(false)
       })
   })
 
@@ -77,7 +77,7 @@ describe('Account Method Tests', async () => {
       .set('authenticate', token)
       .expect(200)
       .then((resp) => {
-        expect(resp)
+        expect(resp.body.message).equals(false)
       })
   })
 
@@ -87,7 +87,7 @@ describe('Account Method Tests', async () => {
       .set('authenticate', token)
       .expect(200)
       .then((resp) => {
-        expect(resp)
+        expect(resp.body.message).equals(false)
       })
   })
 
@@ -97,7 +97,7 @@ describe('Account Method Tests', async () => {
       .set('authenticate', token)
       .expect(200)
       .then((resp) => {
-        expect(resp)
+        expect(resp.body.message).equals(false)
       })
   })
 
@@ -107,7 +107,7 @@ describe('Account Method Tests', async () => {
       .set('authenticate', token)
       .expect(200)
       .then((resp) => {
-        expect(resp)
+        expect(resp.body.message).equals(false)
       })
   })
 
@@ -117,7 +117,7 @@ describe('Account Method Tests', async () => {
       .set('authenticate', token)
       .expect(200)
       .then((resp) => {
-        expect(resp)
+        expect(resp.body.message).equals(false)
       })
   })
 
@@ -127,7 +127,28 @@ describe('Account Method Tests', async () => {
       .set('authenticate', token)
       .expect(200)
       .then((resp) => {
-        expect(resp)
+        expect(resp.body.message).equals(false)
+      })
+  })
+
+  it('should get all Post Office savings accounts', async () => {
+    request(server)
+      .get(apiAccBase + `/saving-all-post`)
+      .set('authenticate', token)
+      .expect(200)
+      .then((resp) => {
+        expect(resp.body.message).equals(false)
+      })
+  })
+
+  it('should check iban', async () => {
+    let iban = "BOW12345567889"
+    request(server)
+      .post(apiAccBase + `/check-iban`,iban)
+      .set('authenticate', token)
+      .expect(200)
+      .then((resp) => {
+        expect(resp.body.message).equals(false)
       })
   })
 

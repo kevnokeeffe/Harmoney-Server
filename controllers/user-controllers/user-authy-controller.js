@@ -180,49 +180,52 @@ router.authyUserEmail = (req,res) => {
 // Update email
 router.authyUserEmailUpdate = (req,res) => {
 	res.setHeader('Content-Type', 'application/json');
-	const tokenData = tokenService.decodeHeaderToken(req)
-	console.log(tokenData)
-	const { email } = req.body[0];
-	User.findOne({ email })
+	// const tokenData = tokenService.decodeHeaderToken(req)
+	const email = req.body.data[0];
+	User.findOne({ email:email })
 		.then(user => {
 			if (!user) {
 				return res.send({message: false});
-        
 			}
 			const updateUserAccount = user;
-			updateUserAccount.phone = req.body[1]
-			console.log(user)
+			updateUserAccount.phone = req.body.data[1]
 			User.findByIdAndUpdate({_id: updateUserAccount._id}, updateUserAccount, error  =>{
 				if (error){
 					return res.send({message:false});
 				} else {
 					return res.send({message:true});}
+			}).catch(err => {
+				res.status(500).send({ message: false, error: err });
 			});
 			
+		}).catch(err => {
+			res.status(500).send({ message: false, error: err });
 		});
 };
 
 // Update Phone
 router.authyUserPhoneUpdate = (req,res) => {
 	res.setHeader('Content-Type', 'application/json');
-	const tokenData = tokenService.decodeHeaderToken(req)
-	console.log(tokenData)
-	const { id } = req.body[0];
-	User.findOne({ id })
+	// const tokenData = tokenService.decodeHeaderToken(req)
+	const email = req.body.data[0];
+	User.findOne({ email:email })
 		.then(user => {
 			if (!user) {
 				return res.send({message: false});
         
 			}
 			const updateUserAccount = user;
-			updateUserAccount.phone = req.body[1]
-			console.log(user)
+			updateUserAccount.phone = req.body.data[1]
 			User.findByIdAndUpdate({_id: updateUserAccount._id}, updateUserAccount, error  =>{
 				if (error){
 					return res.send({message:false});
 				} else {
 					return res.send({message:true});}
+			}).catch(err => {
+				res.status(500).send({ message: false});
 			});
+		}).catch(err => {
+			res.status(500).send({ message: false});
 		});
 };
 

@@ -3,7 +3,6 @@
 const jwt = require('jsonwebtoken');
 let express = require('express');
 let router = express.Router();
-const axios = require('axios');
 require('dotenv').config();
 
 router.generateJWT = user => {

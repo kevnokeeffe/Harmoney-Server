@@ -21,6 +21,11 @@ const user = {
     password: process.env.KEVS_PASSWORD
 }
 
+const user2 = {
+    email: "kevnokeeffe@gmail.com",
+    password: "process.env.KEVS_PASSWORD"
+}
+
 
 describe('Database Connection',  async () => {
     it('should connect to the database',  () => {
@@ -63,6 +68,21 @@ describe('Financial Instution Account Login Testing',  async () => {
             .set("authenticate", token)
             .send(user)
             .expect(200) 
+            .then(resp => {
+                expect(resp)
+                console.log(resp.body)
+                expect(resp.body.message).equals('Successful Login');
+            })
+    });
+
+    it("should not login to Bank of WIT", async () => {
+        request(server)
+            .post(apiFIBase + '/login-refresh-wit')
+            .set("authenticate", token)
+            .send(user2)
+            .then(resp => {
+                expect(resp)
+            })
     });
 
     it("should login to AIB", async () => {
@@ -71,6 +91,20 @@ describe('Financial Instution Account Login Testing',  async () => {
             .set("authenticate", token)
             .send(user)
             .expect(200) 
+            .then(resp => {
+                expect(resp)
+                expect(resp.body.message).equals('Successful Login');
+            })
+    });
+
+    it("should not login to AIB", async () => {
+        request(server)
+            .post(apiFIBase + '/login-refresh-aib')
+            .set("authenticate", token)
+            .send(user2)
+            .then(resp => {
+                expect(resp)
+            })
     });
 
     it("should login to Credit Union", async () => {
@@ -79,6 +113,10 @@ describe('Financial Instution Account Login Testing',  async () => {
             .set("authenticate", token)
             .send(user)
             .expect(200) 
+            .then(resp => {
+                expect(resp)
+                expect(resp.body.message).equals('Successful Login');
+            })
     });
 
     it("should login to Post Office", async () => {
@@ -87,6 +125,10 @@ describe('Financial Instution Account Login Testing',  async () => {
             .set("authenticate", token)
             .send(user)
             .expect(200) 
+            .then(resp => {
+                expect(resp)
+                expect(resp.body.message).equals('Successful Login');
+            })
     });
 
     it("should login to Post Office Access", async () => {
@@ -96,6 +138,7 @@ describe('Financial Instution Account Login Testing',  async () => {
             .send(user)
             .expect(200) 
             .then(resp => {
+                expect(resp)
                 expect(resp.body.message).equals('Successful Login');
             })
     });
@@ -107,6 +150,7 @@ describe('Financial Instution Account Login Testing',  async () => {
             .send(user)
             .expect(200) 
             .then(resp => {
+                expect(resp)
                 expect(resp.body.message).equals('Successful Login');
             })
     });
@@ -118,6 +162,7 @@ describe('Financial Instution Account Login Testing',  async () => {
             .send(user)
             .expect(200) 
             .then(resp => {
+                expect(resp)
                 expect(resp.body.message).equals('Successful Login');
             })
     });
@@ -129,6 +174,7 @@ describe('Financial Instution Account Login Testing',  async () => {
             .send(user)
             .expect(200) 
             .then(resp => {
+                expect(resp)
                 expect(resp.body.message).equals('Successful Login');
             })
     });
