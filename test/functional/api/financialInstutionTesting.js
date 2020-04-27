@@ -70,7 +70,6 @@ describe('Financial Instution Account Login Testing',  async () => {
             .expect(200) 
             .then(resp => {
                 expect(resp)
-                console.log(resp.body)
                 expect(resp.body.message).equals('Successful Login');
             })
     });

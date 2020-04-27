@@ -19,7 +19,9 @@ router.getAllWITcurrentAccounts = async (req, res) => {
     FiDetails.find({ financialInstitutionID: id })
       .then((resp) => {
         for (let x = 0; x < resp.length; ++x) {
+          
           if (resp !== null && resp[x].userID === req.userId) {
+            
             refreshToken = resp[x].refreshToken
           }
         }
