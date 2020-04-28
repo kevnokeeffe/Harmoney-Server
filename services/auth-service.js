@@ -15,7 +15,7 @@ router.generateJWT = user => {
 	};
 
 	let verifyOptions = {
-		expiresIn:  1000000
+		expiresIn:  86400
 	   };
 
 	const token = jwt.sign(tokenData, process.env.SECRET_KEY, verifyOptions);
