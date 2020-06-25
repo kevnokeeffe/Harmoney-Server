@@ -1,14 +1,12 @@
 # Harmon€y 
 ### A Financial Accounts Management System
-![](./README_Images/Harmoney.jpg =100x100)
- 
 ### By Kevin O'Keeffe 
 This is a Final Year Project.
 BSc(Hons) in Software Systems Development,
 Department of Computing and Mathematics, 
 School of Science and Computing, WIT
 
-[Demo Video Link]()
+[Demo Video Link](https://www.youtube.com/watch?v=5dttRHkbZp0)
 
 WebSite page: [Harmon€y](https://harmoney-client.web.app/#/).
 
